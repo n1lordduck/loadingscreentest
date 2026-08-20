@@ -52,7 +52,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 #content{display:grid;grid-template-columns:1fr 1.45fr;gap:11px;width:100%;max-width:900px;animation:fadeUp .7s .12s cubic-bezier(.22,1,.36,1) both}
 @keyframes fadeUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-.panel{background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:14px 16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.panel{background:var(--panel);border:1px solid var(--panel-border);border-radius:3px;padding:14px 16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:relative}
+.panel::before{content:'';position:absolute;top:0;left:0;width:14px;height:14px;
+  border-top:2px solid var(--yellow-dark);border-left:2px solid var(--yellow-dark)}
+.panel::after{content:'';position:absolute;bottom:0;right:0;width:14px;height:14px;
+  border-bottom:2px solid var(--yellow-dark);border-right:2px solid var(--yellow-dark)}
 .panel-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2.5px;color:var(--yellow);border-bottom:1px solid var(--panel-border);padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
 .panel-title svg{width:15px;height:15px;fill:var(--yellow);flex-shrink:0}
 
@@ -89,7 +93,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
 
 /* LOADING */
 #loading-section{width:100%;max-width:900px;animation:fadeUp .8s .25s cubic-bezier(.22,1,.36,1) both}
-#status-bar{background:var(--panel);border:1px solid var(--panel-border);border-radius:10px;padding:12px 16px;backdrop-filter:blur(8px)}
+#status-bar{background:var(--panel);border:1px solid var(--panel-border);border-radius:3px;padding:12px 16px;backdrop-filter:blur(8px);position:relative}
+#status-bar::before{content:'';position:absolute;top:0;left:0;width:14px;height:14px;
+  border-top:2px solid var(--yellow-dark);border-left:2px solid var(--yellow-dark)}
+#status-bar::after{content:'';position:absolute;bottom:0;right:0;width:14px;height:14px;
+  border-bottom:2px solid var(--yellow-dark);border-right:2px solid var(--yellow-dark)}
 #status-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 #status-msg{color:var(--accent);font-weight:700;font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%}
 #pct-text{color:var(--yellow);font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px}
