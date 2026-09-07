@@ -11,14 +11,13 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --cloud:rgba(253,247,236,.92);
-  --cloud-soft:rgba(253,247,236,.55);
-  --ink:#3a2c14;
-  --ink-soft:#6b5a3a;
+  --cloud:rgba(255,255,255,.93);
+  --ink:#2c2c2c;
+  --ink-soft:#6a6a6a;
   --gold:#b9860f;
   --gold-deep:#8f6a12;
-  --gold-bright:#e0a716;
-  --accent:#0f7a8c;
+  --blue:#2f8fe0;
+  --blue-deep:#1a5fa8;
   --bg:#0b0e14;
 }
 html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;overflow:hidden}
@@ -37,9 +36,10 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-fami
 .bg-layer.kbD{animation-name:kbD;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
 
 #bg-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
-  linear-gradient(180deg,#00000055 0%,#00000018 22%,#00000018 70%,#00000060 100%)}
+  linear-gradient(90deg,#00000060 0%,#00000015 42%,transparent 60%),
+  linear-gradient(180deg,#00000045 0%,transparent 18%,transparent 78%,#00000050 100%)}
 
-#bg-canvas{position:fixed;inset:0;z-index:0;opacity:.18;pointer-events:none}
+#bg-canvas{position:fixed;inset:0;z-index:0;opacity:.16;pointer-events:none}
 
 /* bubbles */
 .bubble{position:fixed;bottom:-30px;border-radius:50%;background:#FFD700;pointer-events:none;animation:floatUp linear infinite}
@@ -50,55 +50,59 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-fami
   100%{transform:translateY(-110vh) scale(1.3);opacity:0}
 }
 
-#app{position:relative;z-index:1;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 20px;gap:18px}
+/* CLOUD SHAPE — organic blob + puffs, no hard rectangles */
+.cloud{
+  position:relative;
+  background:var(--cloud);
+  border-radius:46% 54% 57% 43% / 53% 46% 54% 47%;
+  box-shadow:0 14px 30px -10px #00000080;
+  padding:22px 30px 26px 30px;
+}
+.cloud::before,.cloud::after{
+  content:'';position:absolute;background:var(--cloud);border-radius:50%;pointer-events:none;z-index:-1
+}
+.cloud::before{width:34%;height:44%;top:-16%;left:6%}
+.cloud::after{width:26%;height:36%;top:-12%;right:16%}
 
-/* CLOUD SHAPE (used by header, panels and loading bar) */
-.cloud{position:relative;background:var(--cloud);border-radius:26px;box-shadow:0 12px 28px -10px #00000070,inset 0 0 0 1px #ffffffb0;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.cloud::before{
-  content:'';position:absolute;left:-4%;right:-4%;top:-18px;height:36px;pointer-events:none;
-  background:
-    radial-gradient(circle at 10% 100%, var(--cloud) 0 15px, transparent 16px),
-    radial-gradient(circle at 30% 100%, var(--cloud) 0 20px, transparent 21px),
-    radial-gradient(circle at 55% 100%, var(--cloud) 0 14px, transparent 15px),
-    radial-gradient(circle at 78% 100%, var(--cloud) 0 19px, transparent 20px),
-    radial-gradient(circle at 95% 100%, var(--cloud) 0 13px, transparent 14px);
+/* LEFT CLOUD STACK */
+#cloud-stack{
+  position:fixed;top:0;left:0;height:100vh;width:min(440px,37vw);
+  display:flex;flex-direction:column;justify-content:flex-start;
+  gap:34px;padding:36px 0 36px 30px;overflow-y:auto;z-index:1
 }
 
 /* HEADER */
-#header{display:flex;align-items:center;gap:16px;padding:10px 26px 10px 14px;animation:slideDown .6s cubic-bezier(.22,1,.36,1) both}
+#header{display:flex;align-items:center;gap:14px;animation:slideDown .6s cubic-bezier(.22,1,.36,1) both}
 @keyframes slideDown{from{transform:translateY(-28px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-#duck-logo{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 0 14px #FFD70088);animation:wobble 3.2s ease-in-out infinite}
+#duck-logo{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 0 14px #FFD70088);animation:wobble 3.2s ease-in-out infinite;flex-shrink:0}
 @keyframes wobble{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.07)}}
 
-#server-title h1{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:3px;color:var(--gold-deep);text-shadow:0 2px 0 #00000018;line-height:1}
-#server-title .sub{font-size:.7rem;font-weight:800;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-top:2px}
-#server-title .reborn{display:inline-block;background:linear-gradient(90deg,#ff4e2a,#ff2055);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:3px;padding:2px 8px;border-radius:4px;margin-top:3px;text-transform:uppercase}
+#server-title h1{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;letter-spacing:2px;color:var(--gold-deep);line-height:1}
+#server-title .sub{font-size:.62rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--blue-deep);margin-top:2px}
+#server-title .reborn{display:inline-block;background:linear-gradient(90deg,#ff4e2a,#ff2055);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:3px;padding:2px 8px;border-radius:4px;margin-top:3px;text-transform:uppercase}
 
-/* CONTENT GRID */
-#content{display:grid;grid-template-columns:1fr 1.45fr;gap:18px;width:100%;max-width:900px;animation:fadeUp .7s .12s cubic-bezier(.22,1,.36,1) both}
+#info-cloud,#rules-cloud{animation:fadeUp .7s .12s cubic-bezier(.22,1,.36,1) both}
 @keyframes fadeUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-.panel{padding:14px 16px}
-.panel-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2.5px;color:var(--gold-deep);border-bottom:1px solid #00000014;padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
-.panel-title svg{width:15px;height:15px;fill:var(--gold-deep);flex-shrink:0}
+.panel-title{font-family:'Bebas Neue',sans-serif;font-size:.92rem;letter-spacing:2.5px;color:var(--gold-deep);border-bottom:1px solid #00000014;padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.panel-title svg{width:14px;height:14px;fill:var(--gold-deep);flex-shrink:0}
 
 /* INFO */
-.info-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #00000010;font-size:.8rem}
+.info-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #00000010;font-size:.78rem}
 .info-row:last-child{border-bottom:none;padding-top:8px}
-.info-label{color:var(--ink-soft);min-width:72px;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;padding-top:1px;flex-shrink:0}
+.info-label{color:var(--ink-soft);min-width:68px;font-size:.7rem;text-transform:uppercase;letter-spacing:.4px;padding-top:1px;flex-shrink:0}
 .info-val{color:var(--ink);font-weight:700}
 .info-val.y{color:var(--gold)}
-.info-val.a{color:var(--accent)}
-.info-val.sm{font-size:.7rem;word-break:break-all}
+.info-val.a{color:var(--blue-deep)}
+.info-val.sm{font-size:.68rem;word-break:break-all}
 
-.discord-badge{display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:.73rem;font-weight:700;padding:5px 11px;border-radius:7px;text-decoration:none;transition:filter .2s}
+.discord-badge{display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:7px;text-decoration:none;transition:filter .2s}
 .discord-badge:hover{filter:brightness(1.15)}
 .discord-badge svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
 
 /* RULES */
-#rules-panel{display:flex;flex-direction:column}
-#rules-scroll{overflow-y:auto;max-height:210px;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--gold-deep) transparent}
+#rules-scroll{overflow-y:auto;max-height:230px;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--gold-deep) transparent}
 #rules-scroll::-webkit-scrollbar{width:3px}
 #rules-scroll::-webkit-scrollbar-track{background:transparent}
 #rules-scroll::-webkit-scrollbar-thumb{background:var(--gold-deep);border-radius:4px}
@@ -106,30 +110,28 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-fami
 .rule-item{padding:7px 0;border-bottom:1px solid #00000010}
 .rule-item:last-child{border-bottom:none}
 .rule-head{display:flex;align-items:center;gap:7px;margin-bottom:3px}
-.rule-num{display:inline-flex;align-items:center;justify-content:center;background:var(--gold-bright);color:#2a1e05;font-family:'Bebas Neue',sans-serif;font-size:.8rem;width:19px;height:19px;border-radius:4px;flex-shrink:0}
-.rule-title-text{font-size:.8rem;font-weight:800;color:var(--gold-deep)}
+.rule-num{display:inline-flex;align-items:center;justify-content:center;background:var(--gold-deep);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:.78rem;width:18px;height:18px;border-radius:4px;flex-shrink:0}
+.rule-title-text{font-size:.78rem;font-weight:800;color:var(--gold-deep)}
 
-.sub-rule{display:flex;gap:6px;padding:3px 0 3px 26px;font-size:.73rem;color:var(--ink-soft);line-height:1.45}
-.sub-rule .tag{color:var(--accent);font-weight:700;flex-shrink:0;font-size:.7rem}
+.sub-rule{display:flex;gap:6px;padding:3px 0 3px 25px;font-size:.71rem;color:var(--ink-soft);line-height:1.45}
+.sub-rule .tag{color:var(--blue-deep);font-weight:700;flex-shrink:0;font-size:.68rem}
 
-.rule-note{margin:4px 0 2px 26px;font-size:.68rem;background:#b9860f1a;border-left:2px solid var(--gold-deep);padding:4px 8px;border-radius:0 4px 4px 0;color:var(--ink-soft);line-height:1.4}
+.rule-note{margin:4px 0 2px 25px;font-size:.66rem;background:#b9860f1a;border-left:2px solid var(--gold-deep);padding:4px 8px;border-radius:0 4px 4px 0;color:var(--ink-soft);line-height:1.4}
 
-/* LOADING */
-#loading-section{width:100%;max-width:900px;animation:fadeUp .8s .25s cubic-bezier(.22,1,.36,1) both}
-#status-bar{padding:12px 16px}
-#status-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
-#status-msg{color:var(--accent);font-weight:700;font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%}
-#pct-text{color:var(--gold-deep);font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px}
-#bar-track{height:7px;background:#00000012;border-radius:99px;overflow:hidden;position:relative}
-#bar-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#c89a00,var(--gold-bright),#fff2b8);transition:width .35s ease;position:relative}
+/* LOADING BAR — floats free, no card, just the bar */
+#loading-section{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);width:min(640px,60vw);z-index:1;animation:fadeUp .8s .25s cubic-bezier(.22,1,.36,1) both}
+#status-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#status-msg{color:#fff;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%;text-shadow:0 2px 6px #000000cc}
+#pct-text{color:var(--blue);font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-shadow:0 2px 6px #000000cc}
+#bar-track{height:8px;background:#ffffff26;border-radius:99px;overflow:hidden;position:relative;box-shadow:0 2px 10px #00000060}
+#bar-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#1a5fa8,var(--blue),#bfe2ff);transition:width .35s ease;position:relative}
 #bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#ffffff80);border-radius:99px;animation:shim 1.3s ease-in-out infinite}
 @keyframes shim{0%,100%{opacity:0}50%{opacity:1}}
-#bar-glow{height:100%;width:0%;border-radius:99px;background:var(--gold-bright);filter:blur(6px);opacity:.4;position:absolute;top:0;left:0;transition:width .35s ease;pointer-events:none}
-#files-row{display:flex;gap:14px;margin-top:7px;font-size:.7rem;color:var(--ink-soft)}
-#file-ticker{margin-top:3px;font-size:.67rem;color:var(--ink-soft);opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar-glow{height:100%;width:0%;border-radius:99px;background:var(--blue);filter:blur(7px);opacity:.55;position:absolute;top:0;left:0;transition:width .35s ease;pointer-events:none}
+#file-ticker{margin-top:5px;font-size:.68rem;color:#ffffffb0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px #000000cc}
 
 /* FOOTER */
-#footer{font-size:.62rem;color:#fdf7ec;letter-spacing:.6px;background:#00000055;padding:4px 14px;border-radius:20px;animation:fadeUp 1s .4s both}
+#footer{position:fixed;right:16px;bottom:12px;font-size:.6rem;color:#fdf7ec;letter-spacing:.6px;background:#00000055;padding:4px 14px;border-radius:20px;z-index:1;animation:fadeUp 1s .4s both}
 </style>
 </head>
 <body>
@@ -140,10 +142,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-fami
 <div id="bg-overlay"></div>
 <canvas id="bg-canvas"></canvas>
 
-<div id="app">
+<!-- LEFT CLOUD STACK -->
+<div id="cloud-stack">
 
   <!-- HEADER -->
-  <div id="header" class="cloud">
+  <div id="header">
     <img id="duck-logo" src="logo.webp" alt="Duck's Server Logo" style="border-radius: 12px;">
     <div id="server-title">
       <h1>DUCK'S SERVER</h1>
@@ -152,141 +155,130 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);font-fami
     </div>
   </div>
 
-  <!-- CONTENT -->
-  <div id="content">
-
-    <!-- LEFT: Server Info -->
-    <div class="cloud panel">
-      <div class="panel-title">
-        <svg viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-        INFO DO SERVIDOR
-      </div>
-      <div class="info-row">
-        <span class="info-label">Servidor</span>
-        <span class="info-val y" id="sv-name">Duck's Server: Reborn</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Mapa</span>
-        <span class="info-val a" id="sv-map">—</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Gamemode</span>
-        <span class="info-val" id="sv-gamemode">Sandbox</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Players</span>
-        <span class="info-val" id="sv-players">— / —</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Steam ID</span>
-        <span class="info-val a sm" id="sv-steamid">Detectando...</span>
-      </div>
-      <div class="info-row" style="border-bottom:none">
-        <a class="discord-badge" href="https://discord.gg/D9P5E9BwJj" target="_blank">
-          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
-          discord.gg/D9P5E9BwJj
-        </a>
-      </div>
+  <!-- INFO -->
+  <div class="cloud" id="info-cloud">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      INFO DO SERVIDOR
     </div>
-
-    <!-- RIGHT: Rules -->
-    <div class="cloud panel" id="rules-panel">
-      <div class="panel-title">
-        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        REGRAS
-      </div>
-      <div id="rules-scroll">
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">1</span><span class="rule-title-text">Preconceito</span></div>
-          <div class="sub-rule"><span class="tag">§1.1</span>Qualquer tipo de preconceito, seja direta ou indiretamente, não é tolerado e resultará em banimento permanente caso comprovado.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">2</span><span class="rule-title-text">Lag no Servidor / Crash</span></div>
-          <div class="sub-rule"><span class="tag">§2.1</span>Qualquer tentativa proposital de causar lag ou derrubar o servidor é proibida e pode resultar em banimento permanente ou temporário.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">3</span><span class="rule-title-text">Wiremod</span></div>
-          <div class="sub-rule"><span class="tag">§3.1</span>Dupes ou sistemas Wire/E2 que visem spawnkill (eliminar no spawn sem chance de defesa) são proibidos — punição de aviso a banimento temporário.</div>
-          <div class="sub-rule"><span class="tag">§3.2</span>Sistemas "blinder" (tirar visão do jogador) são proibidos — resultam em jail ou banimento.</div>
-          <div class="sub-rule"><span class="tag">§3.3</span>Turrets automáticas não podem ser spammadas no spawn. Na sua base, são permitidas, mas devem ter botão liga/desliga.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">4</span><span class="rule-title-text">Denúncias</span></div>
-          <div class="sub-rule"><span class="tag">§4.1</span>Denúncias falsas via @ ou sistema de Tickets do Discord são proibidas e podem resultar em mute temporário.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">5</span><span class="rule-title-text">Áudios / Soundboards</span></div>
-          <div class="sub-rule"><span class="tag">§5.1</span>Proibido tocar áudios absurdamente altos de forma proposital. Punição vai de aviso a mute temporário.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">6</span><span class="rule-title-text">Toxicidade</span></div>
-          <div class="sub-rule"><span class="tag">§6.1</span>Não atrapalhe de forma proposital e persistente a experiência de outros jogadores. Punição a critério do moderador.</div>
-          <div class="sub-rule"><span class="tag">§6.2</span>Isso inclui xingar, perseguir, impossibilitar de jogar, entre outros comportamentos.</div>
-          <div class="sub-rule"><span class="tag">§6.3</span>Xingar constantemente ou dizer coisas como "se mata" para outros jogadores não é tolerado. Este servidor é seguro para todos.</div>
-          <div class="rule-note">Xingamentos entre amigos são permitidos, desde que ambos concordem e não seja no chat geral.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">7</span><span class="rule-title-text">Senso Comum</span></div>
-          <div class="sub-rule"><span class="tag">§7.1</span>Não seja estúpido de propósito. Comportamento claramente idiota e proposital resulta em banimento permanente.</div>
-          <div class="sub-rule"><span class="tag">§7.2</span>O fato de algo não estar nas regras não significa que é permitido.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">8</span><span class="rule-title-text">Sistema Builder</span></div>
-          <div class="sub-rule"><span class="tag">§8.1</span>Abusar do modo builder para invadir bases, matar ou obter vantagem em PvP é proibido — sujeito a banimento ou blacklist permanente do sistema.</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">9</span><span class="rule-title-text">Outfitter / Outfitter</span></div>
-          <div class="sub-rule"><span class="tag">§9.1</span>Todo playermodel utilizado no sistema Outfitter/Wardobe devem ser "Safe-for-Work" (SFW). É proibido o uso de playermodels extremamente sexualizados ou "Not-Safe-For-Work" (NSFW)</div>
-          <div class="sub-rule"><span class="tag">§9.2</span>Playermodels que são "Borderline NSFW" NÃO são permitidos, você será advertido para trocar de playermodel, se você recusar, pode ser banido do wardobe ou do servidor como um todo. </div>
-          <div class="sub-rule"><span class="tag">§9.3</span>Nenhum playermodel deve apresentar conteúdo "fetichista"</div>
-        </div>
-
-        <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">10</span><span class="rule-title-text">Sistema de facções/span></div>
-          <div class="sub-rule"><span class="tag">§10.1</span>Nenhum ícone de facção deve ter conteúdo NSFW (inclui fetichista ou algo super seuxalizado) de qualquer forma, pode resultar em remoção da facção e banimento permanente do criador dela.</div>
-          <div class="sub-rule"><span class="tag">§10.2</span>Não é permitido facções que refletem em grupos reais, porém nomes que fazem referência são permitidos, logo, icones de grupos reais também não são permitidos, passivo de banimento permanente do criador da facção e remoção dela. (Por exemplo, não se pode ter um grupo com uma swastika ou a bandeira da Waffen-SS.)</div>
-          <div class="rule-note">Enrolar em casos para evitar punição resulta em banimento permanente sem revogação. Toda punição pode ser discutida com a gerência.</div>
-        </div>
-
-      </div>
+    <div class="info-row">
+      <span class="info-label">Servidor</span>
+      <span class="info-val y" id="sv-name">Duck's Server: Reborn</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Mapa</span>
+      <span class="info-val a" id="sv-map">—</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Gamemode</span>
+      <span class="info-val" id="sv-gamemode">Sandbox</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Players</span>
+      <span class="info-val" id="sv-players">— / —</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Steam ID</span>
+      <span class="info-val a sm" id="sv-steamid">Detectando...</span>
+    </div>
+    <div class="info-row" style="border-bottom:none">
+      <a class="discord-badge" href="https://discord.gg/D9P5E9BwJj" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+        discord.gg/D9P5E9BwJj
+      </a>
     </div>
   </div>
 
-  <!-- LOADING BAR -->
-  <div id="loading-section">
-    <div id="status-bar" class="cloud">
-      <div id="status-top">
-        <span id="status-msg">Conectando ao servidor...</span>
-        <span id="pct-text">0%</span>
+  <!-- RULES -->
+  <div class="cloud" id="rules-cloud">
+    <div class="panel-title">
+      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      REGRAS
+    </div>
+    <div id="rules-scroll">
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">1</span><span class="rule-title-text">Preconceito</span></div>
+        <div class="sub-rule"><span class="tag">§1.1</span>Qualquer tipo de preconceito, seja direta ou indiretamente, não é tolerado e resultará em banimento permanente caso comprovado.</div>
       </div>
-      <div id="bar-track" style="position:relative">
-        <div id="bar-glow"></div>
-        <div id="bar-fill"></div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">2</span><span class="rule-title-text">Lag no Servidor / Crash</span></div>
+        <div class="sub-rule"><span class="tag">§2.1</span>Qualquer tentativa proposital de causar lag ou derrubar o servidor é proibida e pode resultar em banimento permanente ou temporário.</div>
       </div>
-      <!--
-      <div id="files-row">
-        <span>📦 <b id="files-needed">0</b> arquivo(s) restantes</span>
-        <span>📁 <b id="files-total">0</b> total</span>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">3</span><span class="rule-title-text">Wiremod</span></div>
+        <div class="sub-rule"><span class="tag">§3.1</span>Dupes ou sistemas Wire/E2 que visem spawnkill (eliminar no spawn sem chance de defesa) são proibidos — punição de aviso a banimento temporário.</div>
+        <div class="sub-rule"><span class="tag">§3.2</span>Sistemas "blinder" (tirar visão do jogador) são proibidos — resultam em jail ou banimento.</div>
+        <div class="sub-rule"><span class="tag">§3.3</span>Turrets automáticas não podem ser spammadas no spawn. Na sua base, são permitidas, mas devem ter botão liga/desliga.</div>
       </div>
-      !-->
-      <div id="file-ticker">Aguardando servidor...</div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">4</span><span class="rule-title-text">Denúncias</span></div>
+        <div class="sub-rule"><span class="tag">§4.1</span>Denúncias falsas via @ ou sistema de Tickets do Discord são proibidas e podem resultar em mute temporário.</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">5</span><span class="rule-title-text">Áudios / Soundboards</span></div>
+        <div class="sub-rule"><span class="tag">§5.1</span>Proibido tocar áudios absurdamente altos de forma proposital. Punição vai de aviso a mute temporário.</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">6</span><span class="rule-title-text">Toxicidade</span></div>
+        <div class="sub-rule"><span class="tag">§6.1</span>Não atrapalhe de forma proposital e persistente a experiência de outros jogadores. Punição a critério do moderador.</div>
+        <div class="sub-rule"><span class="tag">§6.2</span>Isso inclui xingar, perseguir, impossibilitar de jogar, entre outros comportamentos.</div>
+        <div class="sub-rule"><span class="tag">§6.3</span>Xingar constantemente ou dizer coisas como "se mata" para outros jogadores não é tolerado. Este servidor é seguro para todos.</div>
+        <div class="rule-note">Xingamentos entre amigos são permitidos, desde que ambos concordem e não seja no chat geral.</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">7</span><span class="rule-title-text">Senso Comum</span></div>
+        <div class="sub-rule"><span class="tag">§7.1</span>Não seja estúpido de propósito. Comportamento claramente idiota e proposital resulta em banimento permanente.</div>
+        <div class="sub-rule"><span class="tag">§7.2</span>O fato de algo não estar nas regras não significa que é permitido.</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">8</span><span class="rule-title-text">Sistema Builder</span></div>
+        <div class="sub-rule"><span class="tag">§8.1</span>Abusar do modo builder para invadir bases, matar ou obter vantagem em PvP é proibido — sujeito a banimento ou blacklist permanente do sistema.</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">9</span><span class="rule-title-text">Outfitter / Outfitter</span></div>
+        <div class="sub-rule"><span class="tag">§9.1</span>Todo playermodel utilizado no sistema Outfitter/Wardobe devem ser "Safe-for-Work" (SFW). É proibido o uso de playermodels extremamente sexualizados ou "Not-Safe-For-Work" (NSFW)</div>
+        <div class="sub-rule"><span class="tag">§9.2</span>Playermodels que são "Borderline NSFW" NÃO são permitidos, você será advertido para trocar de playermodel, se você recusar, pode ser banido do wardobe ou do servidor como um todo. </div>
+        <div class="sub-rule"><span class="tag">§9.3</span>Nenhum playermodel deve apresentar conteúdo "fetichista"</div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-head"><span class="rule-num">10</span><span class="rule-title-text">Sistema de facções/span></div>
+        <div class="sub-rule"><span class="tag">§10.1</span>Nenhum ícone de facção deve ter conteúdo NSFW (inclui fetichista ou algo super seuxalizado) de qualquer forma, pode resultar em remoção da facção e banimento permanente do criador dela.</div>
+        <div class="sub-rule"><span class="tag">§10.2</span>Não é permitido facções que refletem em grupos reais, porém nomes que fazem referência são permitidos, logo, icones de grupos reais também não são permitidos, passivo de banimento permanente do criador da facção e remoção dela. (Por exemplo, não se pode ter um grupo com uma swastika ou a bandeira da Waffen-SS.)</div>
+        <div class="rule-note">Enrolar em casos para evitar punição resulta em banimento permanente sem revogação. Toda punição pode ser discutida com a gerência.</div>
+      </div>
+
     </div>
   </div>
 
-  <div id="footer">DUCK'S SERVER: REBORN &nbsp;•&nbsp; Sandbox &nbsp;•&nbsp; discord.gg/D9P5E9BwJj</div>
 </div>
 
+<!-- LOADING BAR (free-floating, no box) -->
+<div id="loading-section">
+  <div id="status-top">
+    <span id="status-msg">Conectando ao servidor...</span>
+    <span id="pct-text">0%</span>
+  </div>
+  <div id="bar-track" style="position:relative">
+    <div id="bar-glow"></div>
+    <div id="bar-fill"></div>
+  </div>
+  <div id="file-ticker">Aguardando servidor...</div>
+</div>
+
+<div id="footer">DUCK'S SERVER: REBORN &nbsp;•&nbsp; Sandbox &nbsp;•&nbsp; discord.gg/D9P5E9BwJj</div>
+
 <script>
-// ── BG SLIDESHOW (screenshots/ folder) ──
+// ── BG SLIDESHOW (screenshots/ folder, at project root) ──
 (function(){
   // Prints devem se chamar 1.jpg, 2.jpg, 3.png... (ver screenshots/README.md)
   // Atualize esse numero conforme adicionar mais prints na pasta.
@@ -406,8 +398,6 @@ const barFill=document.getElementById('bar-fill');
 const barGlow=document.getElementById('bar-glow');
 const pctEl=document.getElementById('pct-text');
 const msgEl=document.getElementById('status-msg');
-const neededEl=document.getElementById('files-needed');
-const totalEl=document.getElementById('files-total');
 const tickerEl=document.getElementById('file-ticker');
 
 (function loop(){
@@ -423,8 +413,6 @@ function recalc(){
     const done=filesTotal-filesNeeded;
     target=Math.min(94,Math.round(done/filesTotal*94));
   }
-  neededEl.textContent=filesNeeded;
-  totalEl.textContent=filesTotal;
 }
 
 // ── GMOD HOOKS ──
