@@ -4,34 +4,26 @@ Prints do servidor usados no fundo animado da tela de carregamento.
 
 ## Convenção de nomes
 
-Os arquivos devem ser numerados sequencialmente a partir de `1`, com uma das
-extensões suportadas: `.jpg`, `.jpeg`, `.png` ou `.webp`.
+Qualquer nome de arquivo serve (`.jpg`, `.jpeg`, `.png` ou `.webp`) — não
+precisa renomear os prints. Como é uma pagina estatica, o `index.html` nao
+consegue listar a pasta sozinho, entao os nomes ficam num array `SCREENSHOTS`
+no topo do bloco `// BG SLIDESHOW` do script.
 
-```
-screenshots/1.jpg
-screenshots/2.png
-screenshots/3.webp
-...
-```
+Ao adicionar um print novo:
 
-O `index.html` tenta carregar cada número nessa sequência (testando as
-extensões nessa ordem) e monta a lista de fundos automaticamente a partir
-dos arquivos que existirem — não precisa ser sequência sem furos nem usar a
-mesma extensão em todos.
+1. Solte o arquivo dentro de `screenshots/`.
+2. Adicione o nome exato dele (com extensao) na lista `SCREENSHOTS` no
+   `index.html`.
 
-## Atualizando a quantidade
-
-O `index.html` define uma constante `TOTAL_SCREENSHOTS` (dentro do bloco
-`// BG SLIDESHOW`) com o maior número que ele vai tentar carregar. Se você
-adicionar mais prints do que esse valor, aumente a constante para o novo
-total; caso contrário os prints extras não entram na rotação.
+Um print que esta na pasta mas nao esta na lista simplesmente nunca aparece
+na rotacao.
 
 ## Comportamento
 
-- A cada ~11s o fundo troca para um print aleatório (sem repetir o mesmo
-  print duas vezes seguidas), com fade cruzado entre a imagem atual e a
-  próxima.
+- A cada ~11s o fundo troca para um print aleatorio da lista (sem repetir o
+  mesmo print duas vezes seguidas), com fade cruzado entre a imagem atual e
+  a proxima.
 - Cada print tem um leve efeito de zoom-in/zoom-out (estilo menu principal
   do GMod) enquanto fica em tela.
-- Se a pasta estiver vazia, o fundo simplesmente permanece na cor sólida
-  padrão — nada quebra.
+- Se a lista estiver vazia, o fundo simplesmente permanece na cor solida
+  padrao — nada quebra.
