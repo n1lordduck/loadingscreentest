@@ -11,128 +11,165 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --yellow:#FFD700;
-  --yellow-dark:#E6B800;
-  --yellow-glow:#FFD70033;
-  --bg:#080c18;
-  --panel:#0f1623dd;
-  --panel-border:#FFD70030;
-  --panel-border-hover:#FFD70066;
-  --text:#dde3ef;
-  --text-muted:#6b7a96;
-  --accent:#00c8f0;
+  --ink:#2c2c2c;
+  --ink-soft:#666;
+  --gold:#b9860f;
+  --gold-deep:#8f6a12;
+  --blue:#2f8fe0;
+  --blue-deep:#1a5fa8;
+  --bg:#0b0e14;
 }
-html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;overflow:hidden}
+html{background:var(--bg)}
+html,body{width:100%;height:100%;color:var(--ink);font-family:'Nunito',sans-serif;overflow:hidden}
 
-#bg-canvas{position:fixed;inset:0;z-index:0;opacity:.22;pointer-events:none}
+/* BACKGROUND SLIDESHOW */
+#bg-stage{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg);display:none}
+.bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2.4s ease-in-out;transform-origin:center center}
+.bg-layer.active{opacity:1}
+@keyframes kbA{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.16) translate(-1.5%,-1%)}}
+@keyframes kbB{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.16) translate(1.5%,1%)}}
+@keyframes kbC{0%{transform:scale(1.16) translate(-1.5%,-1%)}100%{transform:scale(1) translate(0,0)}}
+@keyframes kbD{0%{transform:scale(1.16) translate(1.5%,1%)}100%{transform:scale(1) translate(0,0)}}
+.bg-layer.kbA{animation-name:kbA;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
+.bg-layer.kbB{animation-name:kbB;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
+.bg-layer.kbC{animation-name:kbC;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
+.bg-layer.kbD{animation-name:kbD;animation-timing-function:ease-in-out;animation-fill-mode:forwards}
+
+#bg-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  linear-gradient(180deg,#00000045 0%,transparent 20%,transparent 76%,#00000055 100%)}
+
+#bg-canvas{position:fixed;inset:0;z-index:0;opacity:.14;pointer-events:none}
 
 /* bubbles */
-.bubble{position:fixed;bottom:-30px;border-radius:50%;background:var(--yellow);pointer-events:none;animation:floatUp linear infinite}
+.bubble{position:fixed;bottom:-30px;border-radius:50%;background:#FFD700;pointer-events:none;animation:floatUp linear infinite}
 @keyframes floatUp{
   0%{transform:translateY(0) scale(.4);opacity:0}
-  10%{opacity:.12}
-  90%{opacity:.06}
+  10%{opacity:.14}
+  90%{opacity:.07}
   100%{transform:translateY(-110vh) scale(1.3);opacity:0}
 }
 
-#app{position:relative;z-index:1;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 20px;gap:12px}
+/* CARTOON CLOUD — solid fill body + puffs fused all the way around the edge
+   (top, bottom AND sides), so no straight/rounded-rect edge is ever visible */
+.cloud{position:relative;width:400px;background:#fff;border-radius:40px;box-shadow:0 20px 36px -12px #00000085}
+.cloud .puff{position:absolute;background:#fff;border-radius:50%;pointer-events:none;z-index:0}
+/* top row */
+.cloud .p1{width:110px;height:110px;top:-55px;left:-25px}
+.cloud .p2{width:140px;height:140px;top:-70px;left:40px}
+.cloud .p3{width:160px;height:160px;top:-80px;left:120px}
+.cloud .p4{width:140px;height:140px;top:-70px;left:220px}
+.cloud .p5{width:110px;height:110px;top:-55px;left:315px}
+/* bottom row (mirrors the top row, anchored from the bottom so it adapts to content height) */
+.cloud .p6{width:110px;height:110px;bottom:-55px;left:-25px}
+.cloud .p7{width:140px;height:140px;bottom:-70px;left:40px}
+.cloud .p8{width:160px;height:160px;bottom:-80px;left:120px}
+.cloud .p9{width:140px;height:140px;bottom:-70px;left:220px}
+.cloud .p10{width:110px;height:110px;bottom:-55px;left:315px}
+/* left side, spread as % of height so it adapts to short and tall clouds alike */
+.cloud .p11{width:120px;height:120px;top:6%;left:-58px}
+.cloud .p12{width:120px;height:120px;top:30%;left:-62px}
+.cloud .p13{width:120px;height:120px;top:54%;left:-62px}
+.cloud .p14{width:120px;height:120px;top:78%;left:-58px}
+/* right side */
+.cloud .p15{width:120px;height:120px;top:6%;right:-58px}
+.cloud .p16{width:120px;height:120px;top:30%;right:-62px}
+.cloud .p17{width:120px;height:120px;top:54%;right:-62px}
+.cloud .p18{width:120px;height:120px;top:78%;right:-58px}
+.cloud-content{position:relative;z-index:1;padding:26px 34px 28px}
 
-/* HEADER */
-#header{display:flex;align-items:center;gap:16px;animation:slideDown .6s cubic-bezier(.22,1,.36,1) both}
+/* LEFT + RIGHT CLOUD PLACEMENT */
+#info-cloud{position:fixed;top:20vh;left:4.5vw;z-index:1;transform:scale(.85);transform-origin:top left}
+#rules-wrap{position:fixed;top:8vh;right:4.5vw;height:84vh;display:flex;align-items:center;z-index:1}
+#rules-cloud{max-height:100%;overflow:visible;transform:scale(.85)}
+
+/* HEADER — pinned to the very top, above everything (no box, sits over the photo) */
+#header{position:fixed;top:3vh;left:4.5vw;z-index:5;display:flex;align-items:center;gap:14px;animation:slideDown .6s cubic-bezier(.22,1,.36,1) both}
 @keyframes slideDown{from{transform:translateY(-28px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-#duck-logo{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 0 16px #FFD70088);animation:wobble 3.2s ease-in-out infinite}
+#duck-logo{width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 0 14px #FFD70088);animation:wobble 3.2s ease-in-out infinite;flex-shrink:0}
 @keyframes wobble{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.07)}}
 
-#server-title h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;color:var(--yellow);text-shadow:0 0 28px #FFD70099,0 2px 0 #9a7800;line-height:1}
-#server-title .sub{font-size:.7rem;font-weight:800;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-top:1px}
-#server-title .reborn{display:inline-block;background:linear-gradient(90deg,#ff4e2a,#ff2055);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:3px;padding:2px 8px;border-radius:4px;margin-top:3px;text-transform:uppercase}
+#server-title h1{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;letter-spacing:2px;color:#FFD700;text-shadow:0 2px 10px #000000cc;line-height:1}
+#server-title .sub{font-size:.64rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#fff;text-shadow:0 2px 8px #000000cc;margin-top:2px}
+#server-title .reborn{display:inline-block;background:linear-gradient(90deg,#ff4e2a,#ff2055);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:3px;padding:2px 8px;border-radius:4px;margin-top:3px;text-transform:uppercase}
 
-/* CONTENT GRID */
-#content{display:grid;grid-template-columns:1fr 1.45fr;gap:11px;width:100%;max-width:900px;animation:fadeUp .7s .12s cubic-bezier(.22,1,.36,1) both}
+#info-cloud,#rules-cloud{animation:fadeUp .7s .12s cubic-bezier(.22,1,.36,1) both}
 @keyframes fadeUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-.panel{background:var(--panel);border:1px solid var(--panel-border);border-radius:3px;padding:14px 16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:relative}
-.panel::before{content:'';position:absolute;top:0;left:0;width:14px;height:14px;
-  border-top:2px solid var(--yellow-dark);border-left:2px solid var(--yellow-dark)}
-.panel::after{content:'';position:absolute;bottom:0;right:0;width:14px;height:14px;
-  border-bottom:2px solid var(--yellow-dark);border-right:2px solid var(--yellow-dark)}
-.panel-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2.5px;color:var(--yellow);border-bottom:1px solid var(--panel-border);padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
-.panel-title svg{width:15px;height:15px;fill:var(--yellow);flex-shrink:0}
+.panel-title{font-family:'Bebas Neue',sans-serif;font-size:.92rem;letter-spacing:2.5px;color:var(--gold-deep);border-bottom:1px solid #00000014;padding-bottom:6px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.panel-title svg{width:14px;height:14px;fill:var(--gold-deep);flex-shrink:0}
 
 /* INFO */
-.info-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #ffffff07;font-size:.8rem}
+.info-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid #00000010;font-size:.78rem}
 .info-row:last-child{border-bottom:none;padding-top:8px}
-.info-label{color:var(--text-muted);min-width:72px;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;padding-top:1px;flex-shrink:0}
-.info-val{color:var(--text);font-weight:700}
-.info-val.y{color:var(--yellow)}
-.info-val.a{color:var(--accent)}
-.info-val.sm{font-size:.7rem;word-break:break-all}
+.info-label{color:var(--ink-soft);min-width:68px;font-size:.7rem;text-transform:uppercase;letter-spacing:.4px;padding-top:1px;flex-shrink:0}
+.info-val{color:var(--ink);font-weight:700}
+.info-val.y{color:var(--gold)}
+.info-val.a{color:var(--blue-deep)}
+.info-val.sm{font-size:.68rem;word-break:break-all}
 
-.discord-badge{display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:.73rem;font-weight:700;padding:5px 11px;border-radius:7px;text-decoration:none;transition:filter .2s}
+.discord-badge{display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:7px;text-decoration:none;transition:filter .2s}
 .discord-badge:hover{filter:brightness(1.15)}
 .discord-badge svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
 
 /* RULES */
-#rules-panel{display:flex;flex-direction:column}
-#rules-scroll{overflow-y:auto;max-height:210px;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--yellow-dark) transparent}
+#rules-scroll{overflow-y:auto;max-height:320px;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--gold-deep) transparent}
 #rules-scroll::-webkit-scrollbar{width:3px}
 #rules-scroll::-webkit-scrollbar-track{background:transparent}
-#rules-scroll::-webkit-scrollbar-thumb{background:var(--yellow-dark);border-radius:4px}
+#rules-scroll::-webkit-scrollbar-thumb{background:var(--gold-deep);border-radius:4px}
 
-.rule-item{padding:7px 0;border-bottom:1px solid #ffffff07}
+.rule-item{padding:7px 0;border-bottom:1px solid #00000010}
 .rule-item:last-child{border-bottom:none}
 .rule-head{display:flex;align-items:center;gap:7px;margin-bottom:3px}
-.rule-num{display:inline-flex;align-items:center;justify-content:center;background:var(--yellow);color:#0a0e1a;font-family:'Bebas Neue',sans-serif;font-size:.8rem;width:19px;height:19px;border-radius:4px;flex-shrink:0}
-.rule-title-text{font-size:.8rem;font-weight:800;color:var(--yellow)}
+.rule-num{display:inline-flex;align-items:center;justify-content:center;background:var(--gold-deep);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:.78rem;width:18px;height:18px;border-radius:4px;flex-shrink:0}
+.rule-title-text{font-size:.78rem;font-weight:800;color:var(--gold-deep)}
 
-.sub-rule{display:flex;gap:6px;padding:3px 0 3px 26px;font-size:.73rem;color:var(--text-muted);line-height:1.45}
-.sub-rule .tag{color:var(--accent);font-weight:700;flex-shrink:0;font-size:.7rem}
+.sub-rule{display:flex;gap:6px;padding:3px 0 3px 25px;font-size:.71rem;color:var(--ink-soft);line-height:1.45}
+.sub-rule .tag{color:var(--blue-deep);font-weight:700;flex-shrink:0;font-size:.68rem}
 
-.rule-note{margin:4px 0 2px 26px;font-size:.68rem;background:#FFD70011;border-left:2px solid var(--yellow-dark);padding:4px 8px;border-radius:0 4px 4px 0;color:#a8966a;line-height:1.4}
+.rule-note{margin:4px 0 2px 25px;font-size:.66rem;background:#b9860f1a;border-left:2px solid var(--gold-deep);padding:4px 8px;border-radius:0 4px 4px 0;color:var(--ink-soft);line-height:1.4}
 
-/* LOADING */
-#loading-section{width:100%;max-width:900px;animation:fadeUp .8s .25s cubic-bezier(.22,1,.36,1) both}
-#status-bar{background:var(--panel);border:1px solid var(--panel-border);border-radius:3px;padding:12px 16px;backdrop-filter:blur(8px);position:relative}
-#status-bar::before{content:'';position:absolute;top:0;left:0;width:14px;height:14px;
-  border-top:2px solid var(--yellow-dark);border-left:2px solid var(--yellow-dark)}
-#status-bar::after{content:'';position:absolute;bottom:0;right:0;width:14px;height:14px;
-  border-bottom:2px solid var(--yellow-dark);border-right:2px solid var(--yellow-dark)}
-#status-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
-#status-msg{color:var(--accent);font-weight:700;font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%}
-#pct-text{color:var(--yellow);font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px}
-#bar-track{height:7px;background:#ffffff0c;border-radius:99px;overflow:hidden;position:relative}
-#bar-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#c89a00,var(--yellow),#fff8c0);transition:width .35s ease;position:relative}
-#bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#ffffff55);border-radius:99px;animation:shim 1.3s ease-in-out infinite}
+/* LOADING BAR — floats free, no card, just the bar */
+#loading-section{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);width:min(640px,55vw);z-index:1;animation:fadeUp .8s .25s cubic-bezier(.22,1,.36,1) both}
+#status-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#status-msg{color:#fff;font-weight:700;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:72%;text-shadow:0 2px 6px #000000cc}
+#pct-text{color:var(--blue);font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-shadow:0 2px 6px #000000cc}
+#bar-track{height:8px;background:#ffffff26;border-radius:99px;overflow:hidden;position:relative;box-shadow:0 2px 10px #00000060}
+#bar-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#1a5fa8,var(--blue),#bfe2ff);transition:width .35s ease;position:relative}
+#bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#ffffff80);border-radius:99px;animation:shim 1.3s ease-in-out infinite}
 @keyframes shim{0%,100%{opacity:0}50%{opacity:1}}
-#bar-glow{height:100%;width:0%;border-radius:99px;background:var(--yellow);filter:blur(6px);opacity:.35;position:absolute;top:0;left:0;transition:width .35s ease;pointer-events:none}
-#files-row{display:flex;gap:14px;margin-top:7px;font-size:.7rem;color:var(--text-muted)}
-#file-ticker{margin-top:3px;font-size:.67rem;color:var(--text-muted);opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar-glow{height:100%;width:0%;border-radius:99px;background:var(--blue);filter:blur(7px);opacity:.55;position:absolute;top:0;left:0;transition:width .35s ease;pointer-events:none}
+#file-ticker{margin-top:5px;font-size:.68rem;color:#ffffffb0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px #000000cc}
 
 /* FOOTER */
-#footer{font-size:.62rem;color:var(--text-muted);opacity:.4;letter-spacing:.6px;animation:fadeUp 1s .4s both}
+#footer{position:fixed;left:50%;bottom:1vh;transform:translateX(-50%);font-size:.6rem;color:#fff;letter-spacing:.6px;text-shadow:0 1px 4px #000000cc;opacity:.7;z-index:1;animation:fadeUp 1s .4s both}
 </style>
 </head>
 <body>
+<div id="bg-stage">
+  <div class="bg-layer" id="bg-layer-a"></div>
+  <div class="bg-layer" id="bg-layer-b"></div>
+</div>
+<div id="bg-overlay"></div>
 <canvas id="bg-canvas"></canvas>
 
-<div id="app">
-
-  <!-- HEADER -->
-  <div id="header">
-    <img id="duck-logo" src="logo.webp" alt="Duck's Server Logo" style="border-radius: 12px;">
-    <div id="server-title">
-      <h1>DUCK'S SERVER</h1>
-      <div class="sub">O melhor sandbox no Garry's Mod</div>
-      <div class="reborn">REBORN</div>
-    </div>
+<!-- HEADER — always on top, above the clouds and the photo -->
+<div id="header">
+  <img id="duck-logo" src="logo.webp" alt="Duck's Server Logo" style="border-radius: 12px;">
+  <div id="server-title">
+    <h1>DUCK'S SERVER</h1>
+    <div class="sub">O melhor sandbox no Garry's Mod</div>
+    <div class="reborn">REBORN</div>
   </div>
+</div>
 
-  <!-- CONTENT -->
-  <div id="content">
-
-    <!-- LEFT: Server Info -->
-    <div class="panel">
+<!-- LEFT: info cloud -->
+<div class="cloud" id="info-cloud">
+  <span class="puff p1"></span><span class="puff p2"></span><span class="puff p3"></span><span class="puff p4"></span><span class="puff p5"></span>
+  <span class="puff p6"></span><span class="puff p7"></span><span class="puff p8"></span><span class="puff p9"></span><span class="puff p10"></span>
+  <span class="puff p11"></span><span class="puff p12"></span><span class="puff p13"></span><span class="puff p14"></span>
+  <span class="puff p15"></span><span class="puff p16"></span><span class="puff p17"></span><span class="puff p18"></span>
+  <div class="cloud-content">
       <div class="panel-title">
         <svg viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
         INFO DO SERVIDOR
@@ -164,9 +201,16 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
         </a>
       </div>
     </div>
+  </div>
 
-    <!-- RIGHT: Rules -->
-    <div class="panel" id="rules-panel">
+<!-- RIGHT: rules cloud -->
+<div id="rules-wrap">
+  <div class="cloud" id="rules-cloud">
+    <span class="puff p1"></span><span class="puff p2"></span><span class="puff p3"></span><span class="puff p4"></span><span class="puff p5"></span>
+    <span class="puff p6"></span><span class="puff p7"></span><span class="puff p8"></span><span class="puff p9"></span><span class="puff p10"></span>
+    <span class="puff p11"></span><span class="puff p12"></span><span class="puff p13"></span><span class="puff p14"></span>
+    <span class="puff p15"></span><span class="puff p16"></span><span class="puff p17"></span><span class="puff p18"></span>
+    <div class="cloud-content">
       <div class="panel-title">
         <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         REGRAS
@@ -227,7 +271,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
         </div>
 
         <div class="rule-item">
-          <div class="rule-head"><span class="rule-num">10</span><span class="rule-title-text">Sistema de facções/span></div>
+          <div class="rule-head"><span class="rule-num">10</span><span class="rule-title-text">Sistema de Facções</span></div>
           <div class="sub-rule"><span class="tag">§10.1</span>Nenhum ícone de facção deve ter conteúdo NSFW (inclui fetichista ou algo super seuxalizado) de qualquer forma, pode resultar em remoção da facção e banimento permanente do criador dela.</div>
           <div class="sub-rule"><span class="tag">§10.2</span>Não é permitido facções que refletem em grupos reais, porém nomes que fazem referência são permitidos, logo, icones de grupos reais também não são permitidos, passivo de banimento permanente do criador da facção e remoção dela. (Por exemplo, não se pode ter um grupo com uma swastika ou a bandeira da Waffen-SS.)</div>
           <div class="rule-note">Enrolar em casos para evitar punição resulta em banimento permanente sem revogação. Toda punição pode ser discutida com a gerência.</div>
@@ -236,32 +280,76 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-fam
       </div>
     </div>
   </div>
-
-  <!-- LOADING BAR -->
-  <div id="loading-section">
-    <div id="status-bar">
-      <div id="status-top">
-        <span id="status-msg">Conectando ao servidor...</span>
-        <span id="pct-text">0%</span>
-      </div>
-      <div id="bar-track" style="position:relative">
-        <div id="bar-glow"></div>
-        <div id="bar-fill"></div>
-      </div>
-      <!--
-      <div id="files-row">
-        <span>📦 <b id="files-needed">0</b> arquivo(s) restantes</span>
-        <span>📁 <b id="files-total">0</b> total</span>
-      </div>
-      !-->
-      <div id="file-ticker">Aguardando servidor...</div>
-    </div>
-  </div>
-
-  <div id="footer">DUCK'S SERVER: REBORN &nbsp;•&nbsp; Sandbox &nbsp;•&nbsp; discord.gg/D9P5E9BwJj</div>
 </div>
 
+<!-- LOADING BAR (free-floating, no box) -->
+<div id="loading-section">
+  <div id="status-top">
+    <span id="status-msg">Conectando ao servidor...</span>
+    <span id="pct-text">0%</span>
+  </div>
+  <div id="bar-track" style="position:relative">
+    <div id="bar-glow"></div>
+    <div id="bar-fill"></div>
+  </div>
+  <div id="file-ticker">Aguardando servidor...</div>
+</div>
+
+<div id="footer">DUCK'S SERVER: REBORN &nbsp;•&nbsp; Sandbox &nbsp;•&nbsp; discord.gg/D9P5E9BwJj</div>
+
 <script>
+// ── BG SLIDESHOW (screenshots/ folder, na raiz do projeto) ──
+(function(){
+  // Lista os arquivos reais dentro de screenshots/. Qualquer nome/extensao
+  // de imagem serve; ao adicionar um print novo, so incluir o nome dele aqui.
+  const SCREENSHOTS = [
+    '204EAC1.webp','bfxx.webp','bom.webp','Captura_de_tela_2026-09-05_023503.webp',
+    'cxzcx.webp','f5tfwp1.webp','feli.webp','fgxbcx.webp','image.webp','lug.webp',
+    'popo.webp','sadasda.webp','sdfds.webp','t3.webp','tt.webp','t.webp',
+    'VWkld8X.webp','xcvxc.webp','xczxcz.webp','xzczxczx.png','zcxzczx.webp'
+  ];
+  const SLIDE_MS = 11000;
+  const KB_VARIANTS = ['kbA','kbB','kbC','kbD'];
+
+  const stage = document.getElementById('bg-stage');
+  const layers = [document.getElementById('bg-layer-a'), document.getElementById('bg-layer-b')];
+  let activeIdx = 0;
+  let lastSrc = null;
+
+  function pickNext(){
+    if(SCREENSHOTS.length===0)return null;
+    if(SCREENSHOTS.length===1)return 'screenshots/'+SCREENSHOTS[0];
+    let name;
+    do{ name = SCREENSHOTS[Math.floor(Math.random()*SCREENSHOTS.length)]; }while('screenshots/'+name===lastSrc);
+    return 'screenshots/'+name;
+  }
+
+  function showLayer(el, src){
+    const variant = KB_VARIANTS[Math.floor(Math.random()*KB_VARIANTS.length)];
+    el.style.backgroundImage = 'url("'+src+'")';
+    el.classList.remove('active','kbA','kbB','kbC','kbD');
+    void el.offsetWidth;
+    el.style.animationDuration = SLIDE_MS+'ms';
+    el.classList.add('active', variant);
+  }
+
+  function tick(){
+    const src = pickNext();
+    if(!src)return;
+    lastSrc = src;
+    const next = 1-activeIdx;
+    showLayer(layers[next], src);
+    layers[activeIdx].classList.remove('active');
+    activeIdx = next;
+  }
+
+  if(SCREENSHOTS.length>0){
+    stage.style.display = 'block';
+    tick();
+    setInterval(tick, SLIDE_MS-400);
+  }
+})();
+
 // ── BG PARTICLES ──
 (function(){
   const c=document.getElementById('bg-canvas');
@@ -312,8 +400,6 @@ const barFill=document.getElementById('bar-fill');
 const barGlow=document.getElementById('bar-glow');
 const pctEl=document.getElementById('pct-text');
 const msgEl=document.getElementById('status-msg');
-const neededEl=document.getElementById('files-needed');
-const totalEl=document.getElementById('files-total');
 const tickerEl=document.getElementById('file-ticker');
 
 (function loop(){
@@ -329,8 +415,6 @@ function recalc(){
     const done=filesTotal-filesNeeded;
     target=Math.min(94,Math.round(done/filesTotal*94));
   }
-  neededEl.textContent=filesNeeded;
-  totalEl.textContent=filesTotal;
 }
 
 // ── GMOD HOOKS ──
