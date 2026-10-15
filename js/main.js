@@ -8,7 +8,7 @@ window.Duck = Duck;
         var small = Math.max(1, Math.floor(px / 2));
         Sprites.paintInto(document.getElementById("title-duck"), "duck_idle", px);
         Sprites.paintInto(document.getElementById("sound-icon"), Duck.Music.isMuted() ? "speaker_off" : "speaker_on", small);
-        document.documentElement.style.fontSize = Math.round(px * 4) + "px";
+        document.documentElement.style.fontSize = Math.round(px * 5) + "px";
     }
 
     function bindSound() {

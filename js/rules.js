@@ -91,23 +91,24 @@ Duck.Rules = (function () {
     }
 
     function layout(px) {
-        Sprites.paintInto(cloudCanvas, "rule_cloud", px);
+        var cloudScale = px + 1;
+        Sprites.paintInto(cloudCanvas, "rule_cloud", cloudScale);
         root.style.width = cloudCanvas.width + "px";
         root.style.height = cloudCanvas.height + "px";
         root.style.marginLeft = -Math.floor(cloudCanvas.width / 2) + "px";
 
-        textBox.style.left = TEXT_BOX.x * px + "px";
-        textBox.style.top = TEXT_BOX.y * px + "px";
-        textBox.style.width = TEXT_BOX.w * px + "px";
-        textBox.style.height = TEXT_BOX.h * px + "px";
-        textBox.style.fontSize = Math.round(px * 3.7) + "px";
+        textBox.style.left = TEXT_BOX.x * cloudScale + "px";
+        textBox.style.top = TEXT_BOX.y * cloudScale + "px";
+        textBox.style.width = TEXT_BOX.w * cloudScale + "px";
+        textBox.style.height = TEXT_BOX.h * cloudScale + "px";
+        textBox.style.fontSize = Math.round(cloudScale * 4.4) + "px";
 
         var dotScale = Math.max(1, Math.floor(px / 2));
         for (var i = 0; i < dotCanvases.length; i++) {
             Sprites.paintInto(dotCanvases[i].canvas, "cloud3", dotScale);
             Sprites.paintInto(dotCanvases[i].crown, "crown", dotScale);
         }
-        dotsEl.style.fontSize = Math.round(px * 3.2) + "px";
+        dotsEl.style.fontSize = Math.round(px * 3.6) + "px";
         dotsEl.style.top = (root.offsetTop + cloudCanvas.height + px * 6) + "px";
     }
 
