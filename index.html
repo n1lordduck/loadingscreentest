@@ -17,14 +17,13 @@
         <canvas id="title-duck"></canvas>
         <div id="title-text">
             <h1>Duck's Server</h1>
-            <p>Sandbox brasileiro · <span id="discord"></span></p>
+            <p>Sandbox brasileiro</p>
         </div>
     </header>
 
     <div id="chips">
         <span class="chip" id="chip-map"></span>
         <span class="chip" id="chip-mode"></span>
-        <span class="chip" id="chip-players"></span>
     </div>
 
     <section id="rule-cloud" class="rule-cloud">
@@ -37,6 +36,12 @@
         </div>
     </section>
     <div id="rule-dots"></div>
+
+    <div id="center-row">
+        <span class="badge badge-anniversary"><canvas id="anniversary-crown"></canvas><span id="anniversary-text"></span></span>
+        <span class="badge badge-discord" id="discord"></span>
+        <span class="badge badge-slots" id="chip-slots"></span>
+    </div>
 
     <figure id="polaroid">
         <div id="polaroid-photo" class="polaroid-photo"></div>
@@ -68,8 +73,5 @@
     <script src="js/gmod.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        document.getElementById("discord").appendChild(document.createTextNode(Duck.Data.discord));
-    </script>
 </body>
 </html>

@@ -8,7 +8,14 @@ window.Duck = Duck;
         var small = Math.max(1, Math.floor(px / 2));
         Sprites.paintInto(document.getElementById("title-duck"), "duck_idle", px);
         Sprites.paintInto(document.getElementById("sound-icon"), Duck.Music.isMuted() ? "speaker_off" : "speaker_on", small);
+        Sprites.paintInto(document.getElementById("anniversary-crown"), "crown", small);
         document.documentElement.style.fontSize = Math.round(px * 5) + "px";
+    }
+
+    function fillText(id, text) {
+        var el = document.getElementById(id);
+        el.innerHTML = "";
+        el.appendChild(document.createTextNode(text));
     }
 
     function bindSound() {
@@ -39,6 +46,8 @@ window.Duck = Duck;
     };
 
     function boot() {
+        fillText("anniversary-text", Duck.Data.anniversary);
+        fillText("discord", Duck.Data.discord);
         Duck.Scene.start(document.getElementById("scene"));
         Duck.Rules.start();
         Duck.Rules.ready = true;

@@ -9,14 +9,14 @@ Duck.Gmod = (function () {
         if (!el || !text) return;
         el.innerHTML = "";
         el.appendChild(document.createTextNode(text));
-        el.style.display = "block";
+        el.style.display = el.className.indexOf("badge") >= 0 ? "inline-block" : "block";
     }
 
     window.GameDetails = function (serverName, serverUrl, mapName, maxPlayers, steamId, gamemode, volume) {
         connected = true;
         setChip("chip-map", mapName);
         setChip("chip-mode", gamemode);
-        if (maxPlayers) setChip("chip-players", maxPlayers + " vagas");
+        if (maxPlayers) setChip("chip-slots", maxPlayers + " slots");
         if (Duck.Music && typeof volume === "number") Duck.Music.setGameVolume(volume);
     };
 

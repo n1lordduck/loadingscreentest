@@ -109,7 +109,9 @@ Duck.Rules = (function () {
             Sprites.paintInto(dotCanvases[i].crown, "crown", dotScale);
         }
         dotsEl.style.fontSize = Math.round(px * 3.6) + "px";
-        dotsEl.style.top = (root.offsetTop + cloudCanvas.height + px * 6) + "px";
+        var dotsTop = root.offsetTop + cloudCanvas.height + px * 6;
+        dotsEl.style.top = dotsTop + "px";
+        document.getElementById("center-row").style.top = (dotsTop + 20 * dotScale + px * 3) + "px";
     }
 
     function buildDots() {
