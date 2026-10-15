@@ -5,6 +5,12 @@ Duck.Data = {
     discord: "discord.gg/D9P5E9BwJj",
     anniversary: "Já se fazem 3 anos!",
 
+    commands: [
+        ["!build", "Entra/sai do modo de construção"],
+        ["!loja", "Itens cosméticos (NADA P2W!)"],
+        ["!conquistas", "Suas conquistas"]
+    ],
+
     screenshots: [
         "204EAC1.webp", "bfxx.webp", "bom.webp", "Captura_de_tela_2026-09-05_023503.webp",
         "cxzcx.webp", "f5tfwp1.webp", "feli.webp", "fgxbcx.webp", "image.webp", "lug.webp",

@@ -18,6 +18,20 @@ window.Duck = Duck;
         el.appendChild(document.createTextNode(text));
     }
 
+    function fillCommands() {
+        var list = document.getElementById("command-list");
+        var commands = Duck.Data.commands || [];
+        for (var i = 0; i < commands.length; i++) {
+            var item = document.createElement("li");
+            var name = document.createElement("span");
+            name.className = "command-name";
+            name.appendChild(document.createTextNode(commands[i][0]));
+            item.appendChild(name);
+            item.appendChild(document.createTextNode(commands[i][1]));
+            list.appendChild(item);
+        }
+    }
+
     function bindSound() {
         var button = document.getElementById("sound-button");
         button.onclick = function () {
@@ -48,6 +62,7 @@ window.Duck = Duck;
     function boot() {
         fillText("anniversary-text", Duck.Data.anniversary);
         fillText("discord", Duck.Data.discord);
+        fillCommands();
         Duck.Scene.start(document.getElementById("scene"));
         Duck.Rules.start();
         Duck.Rules.ready = true;

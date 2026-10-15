@@ -319,6 +319,64 @@ canvas {
     color: #2d3b5c;
 }
 
+/* Commands sign */
+
+#commands {
+    position: absolute;
+    right: 1.6rem;
+    bottom: 11.5rem;
+    width: 19rem;
+    padding: 0.8rem 1rem 0.6rem;
+    box-sizing: border-box;
+    color: #fff3d6;
+    background: #283250;
+    border: 0.18rem solid #182032;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.35rem 0 #182032;
+    -webkit-transform: rotate(3deg);
+    transform: rotate(3deg);
+}
+
+#commands h3 {
+    margin: 0 0 0.6rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.3rem;
+    color: #ffd23f;
+}
+
+#command-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#command-list li {
+    position: relative;
+    min-height: 1.7rem;
+    padding-left: 7.4rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #a5b2ce;
+}
+
+.command-name {
+    position: absolute;
+    left: 0;
+    top: -0.1rem;
+    width: 6.6rem;
+    box-sizing: border-box;
+    padding: 0.1rem 0.5rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1rem;
+    color: #182032;
+    background: #ffd23f;
+    border: 0.12rem solid #182032;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
 /* Loading card */
 
 #progress {
@@ -414,7 +472,7 @@ canvas {
 #sound-button {
     position: absolute;
     right: 1.5rem;
-    bottom: 11.5rem;
+    bottom: 1.2rem;
     width: 3rem;
     height: 3rem;
     padding: 0;
