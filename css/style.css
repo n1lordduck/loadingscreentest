@@ -1,0 +1,386 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #79c4f2;
+    font-family: "Nunito", "Trebuchet MS", sans-serif;
+    color: #2d3b5c;
+}
+
+body {
+    opacity: 0;
+    -webkit-transition: opacity 0.6s;
+    transition: opacity 0.6s;
+}
+
+body.ready {
+    opacity: 1;
+}
+
+canvas {
+    display: block;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: pixelated;
+}
+
+#scene {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Title */
+
+#title {
+    position: absolute;
+    left: 1.5rem;
+    top: 0.8rem;
+}
+
+#title-duck {
+    position: absolute;
+    left: 0;
+    top: -0.4rem;
+}
+
+#title-text {
+    margin-left: 8.4rem;
+    padding-top: 1.2rem;
+}
+
+#title h1 {
+    margin: 0;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: #ffffff;
+    -webkit-text-stroke: 0.12rem #182032;
+    text-shadow: 0 0.22rem 0 #182032;
+    letter-spacing: 0.04rem;
+}
+
+#title p {
+    margin: 0.35rem 0 0 0.1rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #182032;
+}
+
+/* Server chips */
+
+#chips {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.2rem;
+    text-align: right;
+}
+
+.chip {
+    display: none;
+    float: right;
+    clear: right;
+    margin-bottom: 0.4rem;
+    padding: 0.25rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #fff3d6;
+    background: #283250;
+    border: 0.15rem solid #182032;
+    border-radius: 1rem;
+    box-shadow: 0 0.2rem 0 #182032;
+}
+
+/* Rule cloud */
+
+.rule-cloud {
+    position: absolute;
+    left: 50%;
+    top: 11%;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+    -webkit-animation: floaty 6s ease-in-out infinite;
+    animation: floaty 6s ease-in-out infinite;
+}
+
+.rule-cloud-out {
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.rule-cloud-in {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+@-webkit-keyframes floaty {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -0.5rem; }
+}
+
+@keyframes floaty {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -0.5rem; }
+}
+
+#rule-cloud-sprite {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#rule-text {
+    position: absolute;
+    display: table;
+    overflow: hidden;
+    color: #2d3b5c;
+}
+
+#rule-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#rule-title {
+    margin: 0 0 0.45em 0;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.45em;
+    line-height: 1.1;
+}
+
+.rule-number {
+    display: inline-block;
+    min-width: 1.35em;
+    height: 1.35em;
+    margin-right: 0.35em;
+    line-height: 1.35em;
+    text-align: center;
+    font-size: 0.85em;
+    color: #182032;
+    background: #ffd23f;
+    border: 0.12em solid #182032;
+    border-radius: 0.7em;
+    vertical-align: 0.1em;
+}
+
+.rule-part {
+    font-size: 0.6em;
+    color: #6b7a99;
+}
+
+.rule-item {
+    margin: 0 0 0.45em 0;
+    font-size: 0.92em;
+    font-weight: 700;
+    line-height: 1.32;
+}
+
+.rule-tag {
+    display: inline-block;
+    margin-right: 0.35em;
+    padding: 0 0.35em;
+    font-size: 0.78em;
+    font-weight: 800;
+    color: #fff3d6;
+    background: #3fa7f5;
+    border-radius: 0.3em;
+}
+
+/* Section dots (small cloud sprites) */
+
+#rule-dots {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.rule-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 0.15rem;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+}
+
+.rule-dot-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 34%;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-weight: 700;
+    color: #2d3b5c;
+    text-align: center;
+}
+
+.rule-dot-crown {
+    position: absolute;
+    left: 50%;
+    top: -1.6rem;
+    margin-left: -0.5rem;
+    display: none;
+}
+
+.rule-dot-active {
+    -webkit-transform: translateY(-0.3rem);
+    transform: translateY(-0.3rem);
+}
+
+.rule-dot-active .rule-dot-crown {
+    display: block;
+}
+
+/* Polaroid with server screenshots */
+
+#polaroid {
+    position: absolute;
+    left: 2rem;
+    bottom: 14.5rem;
+    width: 14rem;
+    margin: 0;
+    padding: 0.6rem 0.6rem 0;
+    background: #fff8e7;
+    border: 0.18rem solid #182032;
+    border-radius: 0.4rem;
+    box-shadow: 0 0.35rem 0 #182032;
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+}
+
+.polaroid-photo {
+    height: 8.5rem;
+    background-color: #9ad86b;
+    background-size: cover;
+    background-position: center;
+    border: 0.12rem solid #182032;
+    -webkit-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+}
+
+.polaroid-photo-out {
+    opacity: 0;
+}
+
+#polaroid figcaption {
+    padding: 0.35rem 0 0.45rem;
+    text-align: center;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+    color: #2d3b5c;
+}
+
+/* Loading card */
+
+#progress {
+    position: absolute;
+    left: 50%;
+    bottom: 14.5rem;
+    width: 44rem;
+    margin-left: -22rem;
+    padding: 0.9rem 1.2rem 0.8rem;
+    box-sizing: border-box;
+    color: #fff3d6;
+    background: #283250;
+    border: 0.2rem solid #182032;
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem 0 #182032;
+}
+
+#progress-head {
+    position: relative;
+    height: 1.4rem;
+    margin-bottom: 0.6rem;
+}
+
+#progress-status {
+    position: absolute;
+    left: 0;
+    right: 4rem;
+    top: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+#progress-pct {
+    position: absolute;
+    right: 0;
+    top: -0.15rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.3rem;
+    color: #ffd23f;
+}
+
+#progress-track {
+    position: relative;
+    height: 1.5rem;
+    background: #1e263c;
+    border: 0.16rem solid #182032;
+    border-radius: 0.9rem;
+}
+
+#progress-fill {
+    width: 0;
+    height: 100%;
+    border-radius: 0.75rem;
+    background-color: #ffd23f;
+    background-image: -webkit-repeating-linear-gradient(-45deg, #ffd23f 0, #ffd23f 0.6rem, #ffe27a 0.6rem, #ffe27a 1.2rem);
+    background-image: repeating-linear-gradient(-45deg, #ffd23f 0, #ffd23f 0.6rem, #ffe27a 0.6rem, #ffe27a 1.2rem);
+    background-size: 1.7rem 1.7rem;
+    -webkit-animation: stripes 0.8s linear infinite;
+    animation: stripes 0.8s linear infinite;
+}
+
+@-webkit-keyframes stripes {
+    from { background-position: 0 0; }
+    to { background-position: 1.7rem 0; }
+}
+
+@keyframes stripes {
+    from { background-position: 0 0; }
+    to { background-position: 1.7rem 0; }
+}
+
+#progress-duck {
+    position: absolute;
+    bottom: 55%;
+    left: 0;
+}
+
+#progress-file {
+    margin-top: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #a5b2ce;
+}
+
+/* Sound toggle */
+
+#sound-button {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 14.5rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    cursor: pointer;
+    background: #283250;
+    border: 0.18rem solid #182032;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.25rem 0 #182032;
+}
+
+#sound-button canvas {
+    margin: 0 auto;
+}
