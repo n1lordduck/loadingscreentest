@@ -15,7 +15,11 @@ Duck.Data = {
         "204EAC1.webp", "bfxx.webp", "bom.webp", "Captura_de_tela_2026-09-05_023503.webp",
         "cxzcx.webp", "f5tfwp1.webp", "feli.webp", "fgxbcx.webp", "image.webp", "lug.webp",
         "popo.webp", "sadasda.webp", "sdfds.webp", "t3.webp", "tt.webp", "t.webp",
-        "VWkld8X.webp", "xcvxc.webp", "xczxcz.webp", "xzczxczx.png", "zcxzczx.webp"
+        "VWkld8X.webp", "xcvxc.webp", "xczxcz.webp", "zcxzczx.webp",
+        "novo-01.webp", "novo-02.webp", "novo-03.webp", "novo-04.webp", "novo-05.webp",
+        "novo-06.webp", "novo-07.webp", "novo-08.webp", "novo-09.webp", "novo-10.webp",
+        "novo-11.webp", "novo-12.webp", "novo-13.webp", "novo-14.webp",
+        "bigcity.webp", "scary.webp", "scpdk.webp"
     ],
 
     rules: [

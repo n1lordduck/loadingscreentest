@@ -1,29 +1,16 @@
 # screenshots/
 
-Prints do servidor usados no fundo animado da tela de carregamento.
+Prints do servidor usados na polaroid da tela de carregamento.
 
-## Convenção de nomes
+## Como adicionar um print
 
-Qualquer nome de arquivo serve (`.jpg`, `.jpeg`, `.png` ou `.webp`) — não
-precisa renomear os prints. Como é uma pagina estatica, o `index.html` nao
-consegue listar a pasta sozinho, entao os nomes ficam num array `SCREENSHOTS`
-no topo do bloco `// BG SLIDESHOW` do script.
+1. Solte o arquivo (`.jpg`, `.png` ou `.webp`) nesta pasta. Prefira `.webp` com até 1280 px de largura,
+   porque o jogador baixa a pasta toda ao conectar.
+2. Adicione o nome exato, com extensão, na lista `screenshots` de `js/data.js`.
 
-Ao adicionar um print novo:
-
-1. Solte o arquivo dentro de `screenshots/`.
-2. Adicione o nome exato dele (com extensao) na lista `SCREENSHOTS` no
-   `index.html`.
-
-Um print que esta na pasta mas nao esta na lista simplesmente nunca aparece
-na rotacao.
+Um print que está na pasta mas não está na lista nunca aparece.
 
 ## Comportamento
 
-- A cada ~11s o fundo troca para um print aleatorio da lista (sem repetir o
-  mesmo print duas vezes seguidas), com fade cruzado entre a imagem atual e
-  a proxima.
-- Cada print tem um leve efeito de zoom-in/zoom-out (estilo menu principal
-  do GMod) enquanto fica em tela.
-- Se a lista estiver vazia, o fundo simplesmente permanece na cor solida
-  padrao — nada quebra.
+A polaroid troca de print a cada 7 s, escolhendo um aleatório sem repetir o anterior, com fade entre eles.
+Se a lista estiver vazia, a polaroid some.

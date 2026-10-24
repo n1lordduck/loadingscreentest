@@ -1,0 +1,195 @@
+/* Halloween */
+
+.theme-halloween, .theme-halloween body {
+    background: #1b0c33;
+}
+
+.theme-halloween #title h1 {
+    color: #ffb347;
+    -webkit-text-stroke-color: #12081f;
+    text-shadow: 0 0.22rem 0 #12081f, 0 0 1rem rgba(255, 138, 31, 0.6);
+}
+
+.theme-halloween #title p {
+    color: #ffd9a0;
+}
+
+.theme-halloween .chip,
+.theme-halloween .badge-slots,
+.theme-halloween #progress,
+.theme-halloween #commands,
+.theme-halloween #sound-button {
+    background: #2b1740;
+    border-color: #12081f;
+    box-shadow: 0 0.35rem 0 #12081f;
+}
+
+.theme-halloween .chip {
+    color: #ffe9c7;
+    box-shadow: 0 0.2rem 0 #12081f;
+}
+
+.theme-halloween .badge {
+    border-color: #12081f;
+    box-shadow: 0 0.25rem 0 #12081f;
+}
+
+.theme-halloween .badge-anniversary {
+    color: #12081f;
+    background: #ff8a1f;
+}
+
+.theme-halloween #rule-text {
+    color: #3a1d4d;
+}
+
+.theme-halloween .rule-part {
+    color: #7a5a8f;
+}
+
+.theme-halloween .rule-number {
+    background: #ff8a1f;
+    border-color: #12081f;
+}
+
+.theme-halloween .rule-tag {
+    color: #12081f;
+    background: #ff8a1f;
+}
+
+.theme-halloween .rule-dot-label {
+    color: #ffd9a0;
+}
+
+.theme-halloween #polaroid {
+    background: #ffe9c7;
+    border-color: #12081f;
+    box-shadow: 0 0.35rem 0 #12081f;
+}
+
+.theme-halloween .polaroid-photo {
+    border-color: #12081f;
+}
+
+.theme-halloween #polaroid figcaption {
+    color: #3a1d4d;
+}
+
+.theme-halloween #commands h3,
+.theme-halloween #progress-pct {
+    color: #ff9f3a;
+}
+
+.theme-halloween #command-list li,
+.theme-halloween #progress-file {
+    color: #c9b3df;
+}
+
+.theme-halloween .command-name {
+    background: #ff8a1f;
+    border-color: #12081f;
+}
+
+.theme-halloween #progress {
+    box-shadow: 0 0.4rem 0 #12081f;
+}
+
+.theme-halloween #progress-track {
+    background: #170a26;
+    border-color: #12081f;
+}
+
+.theme-halloween #progress-fill {
+    background-color: #ff8a1f;
+    background-image: -webkit-repeating-linear-gradient(-45deg, #ff8a1f 0, #ff8a1f 0.6rem, #ffb04a 0.6rem, #ffb04a 1.2rem);
+    background-image: repeating-linear-gradient(-45deg, #ff8a1f 0, #ff8a1f 0.6rem, #ffb04a 0.6rem, #ffb04a 1.2rem);
+}
+
+/* Christmas */
+
+.theme-christmas, .theme-christmas body {
+    background: #0f1f4a;
+}
+
+.theme-christmas #title h1 {
+    color: #ffffff;
+    -webkit-text-stroke-color: #0c2a20;
+    text-shadow: 0 0.22rem 0 #0c2a20, 0 0 1rem rgba(216, 52, 60, 0.7);
+}
+
+.theme-christmas #title p {
+    color: #dff0ff;
+}
+
+.theme-christmas .chip,
+.theme-christmas .badge-slots,
+.theme-christmas #progress,
+.theme-christmas #commands,
+.theme-christmas #sound-button {
+    background: #1c4a38;
+    border-color: #0c2a20;
+    box-shadow: 0 0.35rem 0 #0c2a20;
+}
+
+.theme-christmas .chip {
+    color: #fff3d6;
+    box-shadow: 0 0.2rem 0 #0c2a20;
+}
+
+.theme-christmas .badge {
+    border-color: #0c2a20;
+    box-shadow: 0 0.25rem 0 #0c2a20;
+}
+
+.theme-christmas .badge-anniversary {
+    color: #ffffff;
+    background: #d8343c;
+}
+
+.theme-christmas .rule-number {
+    color: #ffffff;
+    background: #d8343c;
+    border-color: #0c2a20;
+}
+
+.theme-christmas .rule-tag {
+    background: #1c7a4e;
+}
+
+.theme-christmas .rule-dot-label {
+    color: #0f1f4a;
+}
+
+.theme-christmas #polaroid {
+    background: #fffdf5;
+    border-color: #0c2a20;
+    box-shadow: 0 0.35rem 0 #0c2a20;
+}
+
+.theme-christmas .polaroid-photo {
+    border-color: #0c2a20;
+}
+
+.theme-christmas #command-list li,
+.theme-christmas #progress-file {
+    color: #b9d9c8;
+}
+
+.theme-christmas .command-name {
+    border-color: #0c2a20;
+}
+
+.theme-christmas #progress {
+    box-shadow: 0 0.4rem 0 #0c2a20;
+}
+
+.theme-christmas #progress-track {
+    background: #12331f;
+    border-color: #0c2a20;
+}
+
+.theme-christmas #progress-fill {
+    background-color: #d8343c;
+    background-image: -webkit-repeating-linear-gradient(-45deg, #d8343c 0, #d8343c 0.6rem, #ffffff 0.6rem, #ffffff 1.2rem);
+    background-image: repeating-linear-gradient(-45deg, #d8343c 0, #d8343c 0.6rem, #ffffff 0.6rem, #ffffff 1.2rem);
+}

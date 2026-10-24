@@ -60,6 +60,7 @@ window.Duck = Duck;
     };
 
     function boot() {
+        fillText("title-sub", Duck.Theme.current().subtitle);
         fillText("anniversary-text", Duck.Data.anniversary);
         fillText("discord", Duck.Data.discord);
         fillCommands();
@@ -76,5 +77,8 @@ window.Duck = Duck;
         document.body.className = "ready";
     }
 
-    Sprites.load(boot);
+    Sprites.load(function () {
+        Sprites.applyTints(Duck.Theme.current().tints);
+        boot();
+    });
 })();

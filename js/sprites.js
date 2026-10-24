@@ -11,8 +11,9 @@ Duck.Sprites = (function () {
     var images = {};
 
     function load(done) {
-        var pending = NAMES.length;
-        for (var i = 0; i < NAMES.length; i++) {
+        var names = NAMES.concat(Duck.Theme.current().sprites);
+        var pending = names.length;
+        for (var i = 0; i < names.length; i++) {
             (function (name) {
                 var img = new Image();
                 img.onload = img.onerror = function () {
@@ -21,7 +22,7 @@ Duck.Sprites = (function () {
                 };
                 img.src = "assets/sprites/" + name + ".png";
                 images[name] = img;
-            })(NAMES[i]);
+            })(names[i]);
         }
     }
 
@@ -36,6 +37,30 @@ Duck.Sprites = (function () {
         ctx.mozImageSmoothingEnabled = false;
     }
 
+    function tint(name, color, alpha) {
+        var img = get(name);
+        if (!img) return;
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        canvas.naturalWidth = canvas.width;
+        canvas.naturalHeight = canvas.height;
+        canvas.complete = true;
+        images[name] = canvas;
+    }
+
+    function applyTints(tints) {
+        for (var name in tints) {
+            if (tints.hasOwnProperty(name)) tint(name, tints[name][0], tints[name][1]);
+        }
+    }
+
     function paintInto(canvas, name, scale) {
         var img = get(name);
         if (!img) return;
@@ -47,5 +72,5 @@ Duck.Sprites = (function () {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 
-    return { load: load, get: get, paintInto: paintInto, disableSmoothing: disableSmoothing };
+    return { load: load, get: get, applyTints: applyTints, paintInto: paintInto, disableSmoothing: disableSmoothing };
 })();

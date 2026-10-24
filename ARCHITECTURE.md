@@ -10,8 +10,10 @@ index.html          esqueleto da página e ordem dos scripts
 css/style.css       visual (tamanhos em rem, ver "Escala")
 js/
   data.js           conteúdo: regras, Discord, lista de prints
+  theme.js          escolhe o tema (padrão, halloween, natal) e guarda paleta, sprites e tints
   sprites.js        carrega os PNGs e desenha sprites em canvas sem suavização
   scene.js          cena em pixel art (céu, sol, nuvens, morros, grama, patos)
+  decor.js          enfeites de cada tema: estrelas, morcegos, abóboras, caldeirões, pinheiros, neve
   music.js          chiptune procedural com WebAudio
   rules.js          nuvem das regras: paginação, troca a cada 8 s, indicador 1..10
   loading.js        barra de progresso, status, arquivo baixando, modo demonstração
@@ -25,9 +27,18 @@ motd.html           MOTD (página separada, não usada pela loading screen)
 
 ## Ordem de carregamento
 
-`data -> sprites -> scene -> music -> rules -> loading -> gmod -> gallery -> main`.
+`data -> theme -> sprites -> scene -> decor -> music -> rules -> loading -> gmod -> gallery -> main`.
 Os módulos só definem funções; nada desenha antes de `main.js` chamar `Duck.Sprites.load`,
 que espera todos os PNGs e então chama `boot()`.
+
+## Temas
+
+`theme.js` escolhe o tema ao carregar: `?theme=halloween|christmas|default` na URL tem prioridade (útil
+para testar); sem isso vale o mês, outubro = halloween e dezembro = christmas. A escolha vira a classe
+`theme-<nome>` no `<html>`, que `css/themes.css` usa para trocar as cores da interface. Cada tema
+define céu, cores dos morros e do chão, sprite do sol/lua, chapéu dos patos, sprites extras a carregar
+e `tints`: `Sprites.applyTints` repinta nuvens e grama em tempo de execução, sem PNG novo. `decor.js`
+desenha os enfeites em três passes (`back`, `ground`, `front`) chamados por `scene.js`.
 
 ## Escala
 

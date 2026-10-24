@@ -19,11 +19,24 @@ Duck.Scene = (function () {
     ];
 
     var HILLS = [
-        { color: "#9ad86b", edge: "#5fa847", base: 0.66, a: 7, period: 23, b: 3, period2: 9, phase: 0.4 },
-        { color: "#7cc552", edge: "#4c9440", base: 0.74, a: 5, period: 17, b: 2, period2: 6, phase: 2.1 }
+        { base: 0.66, a: 7, period: 23, b: 3, period2: 9, phase: 0.4 },
+        { base: 0.74, a: 5, period: 17, b: 2, period2: 6, phase: 2.1 }
     ];
 
-    var GROUND = "#6cc24a";
+    var HEADS = {
+        duck_walk1: [20, 4],
+        duck_walk2: [20, 3],
+        duck_cheer: [20, 3],
+        duck_idle: [20, 4]
+    };
+
+    function theme() {
+        return Duck.Theme.current();
+    }
+
+    function env() {
+        return { lw: lw, lh: lh, gy: groundTop(), sprite: drawSprite };
+    }
 
     function now() {
         return (window.performance && performance.now ? performance.now() : Date.now()) / 1000;
@@ -56,16 +69,17 @@ Duck.Scene = (function () {
 
     function drawSky() {
         var grad = bctx.createLinearGradient(0, 0, 0, lh);
-        grad.addColorStop(0, "#79c4f2");
-        grad.addColorStop(0.7, "#bfe6fb");
-        grad.addColorStop(1, "#d9f1ff");
+        var sky = theme().sky;
+        grad.addColorStop(0, sky[0]);
+        grad.addColorStop(0.7, sky[1]);
+        grad.addColorStop(1, sky[2]);
         bctx.fillStyle = grad;
         bctx.fillRect(0, 0, lw, lh);
     }
 
     function drawSun(t) {
         var bob = Math.round(Math.sin(t * 1.2) * 1.5);
-        drawSprite("sun", lw - 92, 8 + bob, 1);
+        drawSprite(theme().sun, lw - 92, 8 + bob, 1);
     }
 
     function drawClouds(t) {
@@ -87,9 +101,9 @@ Duck.Scene = (function () {
             var hill = HILLS[i];
             for (var x = 0; x < lw; x++) {
                 var top = Math.round(hill.base * lh - hillHeight(hill, x));
-                bctx.fillStyle = hill.edge;
+                bctx.fillStyle = theme().hills[i][1];
                 bctx.fillRect(x, top, 1, 1);
-                bctx.fillStyle = hill.color;
+                bctx.fillStyle = theme().hills[i][0];
                 bctx.fillRect(x, top + 1, 1, lh - top);
             }
         }
@@ -102,12 +116,20 @@ Duck.Scene = (function () {
     function drawGround() {
         var gy = groundTop();
         var img = Sprites.get("grass");
-        bctx.fillStyle = GROUND;
+        bctx.fillStyle = theme().ground;
         bctx.fillRect(0, gy + 8, lw, lh - gy);
         if (!img) return;
         for (var x = 0; x < lw; x += img.naturalWidth) {
             bctx.drawImage(img, 0, 0, img.naturalWidth, 9, x, gy, img.naturalWidth, 9);
         }
+    }
+
+    function drawHat(duckName, x, y) {
+        var hat = theme().hat;
+        var head = HEADS[duckName];
+        var img = hat ? Sprites.get(hat) : null;
+        if (!img || !head) return;
+        drawSprite(hat, x + head[0] - img.naturalWidth / 2, y + head[1] + 3 - img.naturalHeight, 1);
     }
 
     function drawParade(t) {
@@ -127,17 +149,22 @@ Duck.Scene = (function () {
                 y -= Math.abs(Math.sin(t * 7 + i)) * 5;
             }
             drawSprite(name, x, y, scale);
+            drawHat(name, x, y);
         }
     }
 
     function frame() {
         var t = now() - startTime;
+        var e = env();
         drawSky();
+        Duck.Decor.back(bctx, t, e);
         drawSun(t);
         drawClouds(t);
         drawHills();
         drawGround();
+        Duck.Decor.ground(bctx, t, e);
         drawParade(t);
+        Duck.Decor.front(bctx, t, e);
         ctx.drawImage(buffer, 0, 0, lw * px, lh * px);
         schedule();
     }
