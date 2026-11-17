@@ -86,12 +86,13 @@ window.Duck = Duck;
         bindSound();
         unlockAudioOnInput();
         paintStatic(Duck.Scene.scale());
-        document.body.className = "ready";
     }
+
+    boot();
 
     Sprites.load(function () {
         Sprites.applyTints(Duck.Theme.current().tints);
         Sprites.applyAliases(Duck.Theme.current().aliases || {});
-        boot();
+        Duck.onScaleChanged(Duck.Scene.scale());
     });
 })();

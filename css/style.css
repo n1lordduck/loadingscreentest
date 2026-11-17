@@ -9,16 +9,6 @@ html, body {
     color: #2d3b5c;
 }
 
-body {
-    opacity: 0;
-    -webkit-transition: opacity 0.6s;
-    transition: opacity 0.6s;
-}
-
-body.ready {
-    opacity: 1;
-}
-
 canvas {
     display: block;
     image-rendering: -moz-crisp-edges;
@@ -298,7 +288,7 @@ canvas {
 }
 
 .polaroid-photo {
-    height: 12rem;
+    height: 7.2rem;
     background-color: #9ad86b;
     background-size: cover;
     background-position: center;
@@ -375,6 +365,217 @@ canvas {
     border: 0.12rem solid #182032;
     border-radius: 0.5rem;
     text-align: center;
+}
+
+/* Spotlight card: useful commands */
+
+#spotlight {
+    position: absolute;
+    left: 1.6rem;
+    top: 8.5rem;
+    width: 19rem;
+    box-sizing: border-box;
+    padding: 0.7rem 1rem 0.3rem;
+    color: #182032;
+    background: #ffd23f;
+    border: 0.2rem solid #182032;
+    border-radius: 0.9rem;
+    box-shadow: 0 0.35rem 0 #182032, 0 0 1.4rem rgba(255, 210, 63, 0.85);
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+    -webkit-animation: spotlight-bob 2.4s ease-in-out infinite, spotlight-glow 1.2s ease-in-out infinite alternate;
+    animation: spotlight-bob 2.4s ease-in-out infinite, spotlight-glow 1.2s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes spotlight-bob {
+    0%, 100% { -webkit-transform: rotate(-2deg) translateY(0); }
+    50% { -webkit-transform: rotate(-2deg) translateY(-0.35rem); }
+}
+
+@keyframes spotlight-bob {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    50% { transform: rotate(-2deg) translateY(-0.35rem); }
+}
+
+@-webkit-keyframes spotlight-glow {
+    from { box-shadow: 0 0.35rem 0 #182032, 0 0 0.4rem rgba(255, 210, 63, 0.3); }
+    to { box-shadow: 0 0.35rem 0 #182032, 0 0 1.8rem rgba(255, 210, 63, 1); }
+}
+
+@keyframes spotlight-glow {
+    from { box-shadow: 0 0.35rem 0 #182032, 0 0 0.4rem rgba(255, 210, 63, 0.3); }
+    to { box-shadow: 0 0.35rem 0 #182032, 0 0 1.8rem rgba(255, 210, 63, 1); }
+}
+
+#spotlight-badge {
+    position: absolute;
+    top: -1.2rem;
+    right: -0.9rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+    line-height: 2.8rem;
+    text-align: center;
+    color: #ffffff;
+    background: #e8443a;
+    border: 0.17rem solid #182032;
+    border-radius: 1.6rem;
+    box-shadow: 0 0.2rem 0 #182032;
+    -webkit-animation: spotlight-wobble 1.1s ease-in-out infinite;
+    animation: spotlight-wobble 1.1s ease-in-out infinite;
+}
+
+@-webkit-keyframes spotlight-wobble {
+    0%, 100% { -webkit-transform: rotate(10deg) scale(1); }
+    50% { -webkit-transform: rotate(-8deg) scale(1.12); }
+}
+
+@keyframes spotlight-wobble {
+    0%, 100% { transform: rotate(10deg) scale(1); }
+    50% { transform: rotate(-8deg) scale(1.12); }
+}
+
+#spotlight h3 {
+    margin: 0 0 0.45rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.4rem;
+    line-height: 1.1;
+}
+
+#spotlight-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.spot-cmd {
+    margin-bottom: 0.45rem;
+}
+
+.spot-name {
+    display: inline-block;
+    padding: 0.1rem 0.65rem 0.15rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.25rem;
+    color: #ffd23f;
+    background: #182032;
+    border-radius: 0.7rem;
+}
+
+.spot-arg {
+    font-size: 0.9rem;
+    color: #ffe99a;
+}
+
+.spot-desc {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #3a3220;
+}
+
+/* Notice card: map collection */
+
+#notice {
+    position: absolute;
+    left: 1.6rem;
+    top: 20rem;
+    width: 19rem;
+    box-sizing: border-box;
+    padding: 0.7rem 0.7rem 0.5rem;
+    color: #ffffff;
+    background: #e8443a;
+    border: 0.2rem solid #182032;
+    border-radius: 0.9rem;
+    box-shadow: 0 0.35rem 0 #182032, 0 0 1rem rgba(232, 68, 58, 0.8);
+    -webkit-transform: rotate(1.5deg);
+    transform: rotate(1.5deg);
+    -webkit-animation: notice-glow 1.4s ease-in-out infinite alternate;
+    animation: notice-glow 1.4s ease-in-out infinite alternate;
+}
+
+#notice:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+@-webkit-keyframes notice-glow {
+    from { box-shadow: 0 0.35rem 0 #182032, 0 0 0.3rem rgba(232, 68, 58, 0.3); }
+    to { box-shadow: 0 0.35rem 0 #182032, 0 0 1.6rem rgba(232, 68, 58, 1); }
+}
+
+@keyframes notice-glow {
+    from { box-shadow: 0 0.35rem 0 #182032, 0 0 0.3rem rgba(232, 68, 58, 0.3); }
+    to { box-shadow: 0 0.35rem 0 #182032, 0 0 1.6rem rgba(232, 68, 58, 1); }
+}
+
+#notice-badge {
+    position: absolute;
+    top: -0.95rem;
+    left: 0.9rem;
+    padding: 0.1rem 0.7rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.2rem;
+    color: #182032;
+    background: #ffd23f;
+    border: 0.15rem solid #182032;
+    border-radius: 1rem;
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+}
+
+#notice-qr {
+    float: left;
+    margin-right: 0.7rem;
+    padding: 0.2rem;
+    line-height: 0;
+    background: #ffffff;
+    border: 0.15rem solid #182032;
+    border-radius: 0.5rem;
+}
+
+#notice-qr canvas {
+    display: block;
+}
+
+#notice-body {
+    overflow: hidden;
+}
+
+#notice h3 {
+    margin: 0 0 0.2rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.1;
+    color: #ffe25a;
+}
+
+#notice p {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.22;
+}
+
+#notice strong {
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.82rem;
+    color: #ffe25a;
+    -webkit-animation: notice-blink 0.9s steps(2, start) infinite;
+    animation: notice-blink 0.9s steps(2, start) infinite;
+}
+
+@-webkit-keyframes notice-blink {
+    to { color: #ffffff; }
+}
+
+@keyframes notice-blink {
+    to { color: #ffffff; }
 }
 
 /* Update card */
@@ -466,6 +667,10 @@ canvas {
     font-weight: 700;
     line-height: 1.3;
     color: #d3dbee;
+}
+
+#update-page strong {
+    color: #ffffff;
 }
 
 .update-text {
