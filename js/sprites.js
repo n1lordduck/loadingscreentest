@@ -37,7 +37,7 @@ Duck.Sprites = (function () {
         ctx.mozImageSmoothingEnabled = false;
     }
 
-    function tint(name, color, alpha) {
+    function tintTo(dest, name, color, alpha) {
         var img = get(name);
         if (!img) return;
         var canvas = document.createElement("canvas");
@@ -52,12 +52,18 @@ Duck.Sprites = (function () {
         canvas.naturalWidth = canvas.width;
         canvas.naturalHeight = canvas.height;
         canvas.complete = true;
-        images[name] = canvas;
+        images[dest] = canvas;
     }
 
     function applyTints(tints) {
         for (var name in tints) {
-            if (tints.hasOwnProperty(name)) tint(name, tints[name][0], tints[name][1]);
+            if (tints.hasOwnProperty(name)) tintTo(name, name, tints[name][0], tints[name][1]);
+        }
+    }
+
+    function applyAliases(aliases) {
+        for (var name in aliases) {
+            if (aliases.hasOwnProperty(name)) tintTo(name, aliases[name][0], aliases[name][1], aliases[name][2]);
         }
     }
 
@@ -72,5 +78,5 @@ Duck.Sprites = (function () {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 
-    return { load: load, get: get, applyTints: applyTints, paintInto: paintInto, disableSmoothing: disableSmoothing };
+    return { load: load, get: get, applyTints: applyTints, applyAliases: applyAliases, paintInto: paintInto, disableSmoothing: disableSmoothing };
 })();

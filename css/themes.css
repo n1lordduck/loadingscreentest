@@ -245,3 +245,225 @@
 .theme-christmas .update-dot-active {
     background: #d8343c;
 }
+
+/* Lake */
+
+.theme-lake, .theme-lake body {
+    background: #1f4a66;
+}
+
+.theme-lake #title h1 {
+    -webkit-text-stroke-color: #0e2538;
+    text-shadow: 0 0.22rem 0 #0e2538;
+}
+
+.theme-lake #title p {
+    color: #e6f6ff;
+}
+
+.theme-lake .chip,
+.theme-lake .badge-slots,
+.theme-lake #progress,
+.theme-lake #commands,
+.theme-lake #update,
+.theme-lake #sound-button {
+    background: #1f4a66;
+    border-color: #0e2538;
+    box-shadow: 0 0.35rem 0 #0e2538;
+}
+
+.theme-lake .chip {
+    box-shadow: 0 0.2rem 0 #0e2538;
+}
+
+.theme-lake .badge {
+    border-color: #0e2538;
+    box-shadow: 0 0.25rem 0 #0e2538;
+}
+
+.theme-lake #progress-track {
+    border-color: #0e2538;
+}
+
+.theme-lake .polaroid-photo,
+.theme-lake #polaroid {
+    border-color: #0e2538;
+}
+
+.theme-lake #polaroid {
+    box-shadow: 0 0.35rem 0 #0e2538;
+}
+
+.theme-lake .command-name {
+    border-color: #0e2538;
+}
+
+.theme-lake #commands h3,
+.theme-lake #progress-pct,
+.theme-lake #update-page-title {
+    color: #ffd23f;
+}
+
+.theme-lake #update-version,
+.theme-lake .command-name,
+.theme-lake .update-tag {
+    background: #ffd23f;
+    border-color: #0e2538;
+}
+
+.theme-lake .update-item:before,
+.theme-lake .update-dot-active {
+    background: #ffd23f;
+}
+
+/* War */
+
+.theme-war, .theme-war body {
+    background: #3b4230;
+}
+
+.theme-war #title h1 {
+    -webkit-text-stroke-color: #1c2016;
+    text-shadow: 0 0.22rem 0 #1c2016;
+}
+
+.theme-war #title p {
+    color: #f0e0c0;
+}
+
+.theme-war .chip,
+.theme-war .badge-slots,
+.theme-war #progress,
+.theme-war #commands,
+.theme-war #update,
+.theme-war #sound-button {
+    background: #3b4230;
+    border-color: #1c2016;
+    box-shadow: 0 0.35rem 0 #1c2016;
+}
+
+.theme-war .chip {
+    box-shadow: 0 0.2rem 0 #1c2016;
+}
+
+.theme-war .badge {
+    border-color: #1c2016;
+    box-shadow: 0 0.25rem 0 #1c2016;
+}
+
+.theme-war #progress-track {
+    border-color: #1c2016;
+}
+
+.theme-war .polaroid-photo,
+.theme-war #polaroid {
+    border-color: #1c2016;
+}
+
+.theme-war #polaroid {
+    box-shadow: 0 0.35rem 0 #1c2016;
+}
+
+.theme-war .command-name {
+    border-color: #1c2016;
+}
+
+.theme-war #commands h3,
+.theme-war #progress-pct,
+.theme-war #update-page-title {
+    color: #e0b84a;
+}
+
+.theme-war #update-version,
+.theme-war .command-name,
+.theme-war .update-tag {
+    background: #e0b84a;
+    border-color: #1c2016;
+}
+
+.theme-war .update-item:before,
+.theme-war .update-dot-active {
+    background: #e0b84a;
+}
+
+.theme-war #progress-fill {
+    background-color: #8a9a4a;
+    background-image: -webkit-repeating-linear-gradient(-45deg, #8a9a4a 0, #8a9a4a 0.6rem, #b5c26a 0.6rem, #b5c26a 1.2rem);
+    background-image: repeating-linear-gradient(-45deg, #8a9a4a 0, #8a9a4a 0.6rem, #b5c26a 0.6rem, #b5c26a 1.2rem);
+}
+
+/* Space */
+
+.theme-space, .theme-space body {
+    background: #1c2250;
+}
+
+.theme-space #title h1 {
+    -webkit-text-stroke-color: #0a0d2e;
+    text-shadow: 0 0.22rem 0 #0a0d2e;
+}
+
+.theme-space #title p {
+    color: #dfe6ff;
+}
+
+.theme-space .chip,
+.theme-space .badge-slots,
+.theme-space #progress,
+.theme-space #commands,
+.theme-space #update,
+.theme-space #sound-button {
+    background: #1c2250;
+    border-color: #0a0d2e;
+    box-shadow: 0 0.35rem 0 #0a0d2e;
+}
+
+.theme-space .chip {
+    box-shadow: 0 0.2rem 0 #0a0d2e;
+}
+
+.theme-space .badge {
+    border-color: #0a0d2e;
+    box-shadow: 0 0.25rem 0 #0a0d2e;
+}
+
+.theme-space #progress-track {
+    border-color: #0a0d2e;
+}
+
+.theme-space .polaroid-photo,
+.theme-space #polaroid {
+    border-color: #0a0d2e;
+}
+
+.theme-space #polaroid {
+    box-shadow: 0 0.35rem 0 #0a0d2e;
+}
+
+.theme-space .command-name {
+    border-color: #0a0d2e;
+}
+
+.theme-space #commands h3,
+.theme-space #progress-pct,
+.theme-space #update-page-title {
+    color: #6fe3ff;
+}
+
+.theme-space #update-version,
+.theme-space .command-name,
+.theme-space .update-tag {
+    background: #6fe3ff;
+    border-color: #0a0d2e;
+}
+
+.theme-space .update-item:before,
+.theme-space .update-dot-active {
+    background: #6fe3ff;
+}
+
+.theme-space #progress-fill {
+    background-color: #3fb8e8;
+    background-image: -webkit-repeating-linear-gradient(-45deg, #3fb8e8 0, #3fb8e8 0.6rem, #7fdcff 0.6rem, #7fdcff 1.2rem);
+    background-image: repeating-linear-gradient(-45deg, #3fb8e8 0, #3fb8e8 0.6rem, #7fdcff 0.6rem, #7fdcff 1.2rem);
+}

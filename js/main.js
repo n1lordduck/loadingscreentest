@@ -83,6 +83,7 @@ window.Duck = Duck;
 
     Sprites.load(function () {
         Sprites.applyTints(Duck.Theme.current().tints);
+        Sprites.applyAliases(Duck.Theme.current().aliases || {});
         boot();
     });
 })();

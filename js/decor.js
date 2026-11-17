@@ -139,16 +139,40 @@ Duck.Decor = (function () {
         ctx.globalAlpha = 1;
     }
 
+    function hooks() {
+        var kind = Duck.Theme.current().decor;
+        return (Duck.Scenes && Duck.Scenes[kind]) || null;
+    }
+
+    function parade(ctx, t, env) {
+        var scene = hooks();
+        if (!scene || !scene.parade) return false;
+        scene.parade(ctx, t, env);
+        return true;
+    }
+
     function back(ctx, t, env) {
+        var scene = hooks();
+        if (scene && scene.back) scene.back(ctx, t, env);
         if (Duck.Theme.current().stars) drawStars(ctx, t, env);
     }
 
     function ground(ctx, t, env) {
+        var scene = hooks();
+        if (scene) {
+            if (scene.ground) scene.ground(ctx, t, env);
+            return;
+        }
         var kind = Duck.Theme.current().decor;
         if (kind) drawGroundItems(ctx, t, env, kind);
     }
 
     function front(ctx, t, env) {
+        var scene = hooks();
+        if (scene) {
+            if (scene.front) scene.front(ctx, t, env);
+            return;
+        }
         var kind = Duck.Theme.current().decor;
         if (kind === "halloween") drawBats(ctx, t, env);
         if (kind === "christmas") {
@@ -159,5 +183,5 @@ Duck.Decor = (function () {
 
     build();
 
-    return { back: back, ground: ground, front: front };
+    return { back: back, ground: ground, front: front, parade: parade };
 })();

@@ -35,7 +35,10 @@ Duck.Scene = (function () {
     }
 
     function env() {
-        return { lw: lw, lh: lh, gy: groundTop(), sprite: drawSprite };
+        return {
+            lw: lw, lh: lh, gy: groundTop(), sprite: drawSprite, duck: drawDuck, walk: walkFrame,
+            cheering: function () { return cheering; }
+        };
     }
 
     function now() {
@@ -59,12 +62,34 @@ Duck.Scene = (function () {
         if (Duck.onScaleChanged) Duck.onScaleChanged(px);
     }
 
-    function drawSprite(name, x, y, scale) {
+    function drawSprite(name, x, y, scale, flip, pivot) {
         var img = Sprites.get(name);
         if (!img) return 0;
         scale = scale || 1;
-        bctx.drawImage(img, Math.floor(x), Math.floor(y), img.naturalWidth * scale, img.naturalHeight * scale);
-        return img.naturalWidth * scale;
+        var w = img.naturalWidth * scale;
+        var h = img.naturalHeight * scale;
+        if (flip) {
+            var p = pivot === undefined ? w / 2 : pivot;
+            bctx.save();
+            bctx.translate(Math.floor(x) + p, 0);
+            bctx.scale(-1, 1);
+            bctx.drawImage(img, -p, Math.floor(y), w, h);
+            bctx.restore();
+        } else {
+            bctx.drawImage(img, Math.floor(x), Math.floor(y), w, h);
+        }
+        return w;
+    }
+
+    function walkFrame(t, index) {
+        return (Math.floor(t * 5 + index) % 2 === 0) ? "duck_walk1" : "duck_walk2";
+    }
+
+    function drawDuck(x, y, frameName, overlays, flip) {
+        drawSprite(frameName, x, y, 1, flip, 16);
+        for (var i = 0; overlays && i < overlays.length; i++) {
+            drawSprite(overlays[i], x, y, 1, flip, 16);
+        }
     }
 
     function drawSky() {
@@ -78,6 +103,7 @@ Duck.Scene = (function () {
     }
 
     function drawSun(t) {
+        if (!theme().sun) return;
         var bob = Math.round(Math.sin(t * 1.2) * 1.5);
         drawSprite(theme().sun, lw - 92, 8 + bob, 1);
     }
@@ -133,6 +159,7 @@ Duck.Scene = (function () {
     }
 
     function drawParade(t) {
+        if (Duck.Decor.parade(bctx, t, env())) return;
         var feet = groundTop() + 4;
         var spacing = 28;
         var count = 5;
@@ -154,14 +181,18 @@ Duck.Scene = (function () {
     }
 
     function frame() {
+        if (lw < 1 || lh < 1) {
+            schedule();
+            return;
+        }
         var t = now() - startTime;
         var e = env();
         drawSky();
         Duck.Decor.back(bctx, t, e);
         drawSun(t);
-        drawClouds(t);
+        if (!theme().noClouds) drawClouds(t);
         drawHills();
-        drawGround();
+        if (!theme().noGround) drawGround();
         Duck.Decor.ground(bctx, t, e);
         drawParade(t);
         Duck.Decor.front(bctx, t, e);
