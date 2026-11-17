@@ -11,44 +11,106 @@ Duck.Data = {
         ["!conquistas", "Suas conquistas"]
     ],
 
+    spotlight: {
+        title: "Comandos úteis",
+        badge: "DICA",
+        commands: [
+            ["!duelo", "<pessoa> [duckpoints]", "Desafie alguém para um duelo. Apostar duckpoints é opcional."],
+            ["!tpa", "<pessoa>", "Peça para se teleportar até a pessoa."]
+        ]
+    },
+
+    notice: {
+        badge: "OBRIGATÓRIO",
+        title: "Coleção de mapas",
+        text: "Nossos mapas vivem em coleções diferentes por otimização. Escaneie e assine a coleção: é **NECESSÁRIO** para entrar nos mapas mais complexos e diferentes votados pelos players.",
+        url: "https://steamcommunity.com/sharedfiles/filedetails/?id=3753560669",
+        qr: [
+            "111111100100001000111111001111111",
+            "100000101101101110001000001000001",
+            "101110100111001000101111001011101",
+            "101110101101010111000011101011101",
+            "101110100010101000111001101011101",
+            "100000101010011110000100001000001",
+            "111111101010101010101010101111111",
+            "000000000000100110001100000000000",
+            "111110111110110111010011110101010",
+            "110111010100001000011101001000111",
+            "110100110101100110001100011011010",
+            "101010001111000010100111010010100",
+            "011110110101010111010011110111000",
+            "111101011110101000111111001000011",
+            "000111101100011110100000011010010",
+            "011010001100100000011101110100100",
+            "001000100110110111000010110110010",
+            "001100011000001001111101011001011",
+            "101111110001111110101110110001010",
+            "010101011111000110011111010010100",
+            "101111101111010011010011110110010",
+            "100111000100111001110101101001011",
+            "100010110110000100001110011001010",
+            "101111000110101110110100101101100",
+            "100000100010100101001011111111001",
+            "000000001100000010011101100010101",
+            "111111101101100111101011101011010",
+            "100000100001000100001101100011110",
+            "101110101011000001100010111111000",
+            "101110101110110011111000110111100",
+            "101110101100011111000101101000110",
+            "100000101100110010001111001001100",
+            "111111101110101011110011110000010"
+        ]
+    },
+
     update: {
-        version: "v3.1.2",
-        title: "Ah shit, here we go again!",
+        version: "v4.0.0",
+        title: "Tra-La-Laaaaaaaaaaaaaaaaaa!",
         sections: [
             { title: "Novidades", blocks: [
-                { text: "Mais conteúdo, novos mapas para apagar os sempre usados de sempre, todos os mapas são grandes, especialmente o harborside, e mais algo na loka!" }
+                { text: "Muito mais conteúdo, desde conquistas, missões, killeffects, killeffects que se pegam com conquistas, mais uma conquista secreta, e o que mais eu consegui fazer no final da tarde de ontem e a tarde de hoje e a madrugada de segunda!" }
+            ]},
+            { title: "Conquistas", blocks: [
+                { items: ["50 conquistas novas!"] },
+                { text: "Kills totais, armas do HL2 (crossbow, RPG, .357, SLAM, SMG, shotgun...), sequências, multikills (Double, Triple e Mega Kill), kill de longe, encerrar a sequência dos outros, nêmesis, mortes por queda, tempo de jogo, loja, caixas, duelos, medalhas e mais." },
+                { items: [
+                    "Algumas são secretas.",
+                    "Todas dá pra pegar jogando normal.",
+                    "Os DuckPoints de cada conquista seguem a raridade, como sempre, mas ajustei pra umas conquistas dar mais duckpoints."
+                ]}
             ]},
             { title: "Duck's Store: Kill Effects", blocks: [
                 { items: [
-                    "54 kill effects",
-                    "Nova aba de efeito de kills!",
-                    "Alguns kill effects foram adicionados para os testes, e para as pessoas verem e sugerirem coisas.",
-                    "Isto é que nem conquistas e nameplates, precisamos de sugestões!"
+                    "20 kill effects novos, e vários são bem mais elaborados: o corpo é fatiado, escorre como areia, vira holograma, cai por um portal infinito, é esmagado por uma cruz de pedra gigante e muito mais.",
+                    "19 kill effects agora são destravados por conquistas. Eles saem da loja, não custam DuckPoints e ficam seus de graça quando você desbloqueia a conquista. **Quem já tinha comprado algum continua com ele.**",
+                    "Exemplos: o do pé de cabra gigante pra quem mata 100 com o crowbar, Cruz de Pedra pra quem faz 100 kills seguidas, Poeira pra quem chega em 5.000 kills.",
+                    "Toque de Midas agora fica realmente dourado, e enquanto equipado dá +25% de DuckPoints nos seus ganhos.",
+                    "O Raio Encolhedor ganhou uma arminha alien."
                 ]}
             ]},
-            { title: "Performance", blocks: [
+            { title: "Doadores", blocks: [
                 { items: [
-                    "O lag, pelos relatos dos players jogando exatamente AGORA de noite, dizem ser inexistente.",
-                    "Uma média do FPS dos players será coletada para análise após updates, mas eu não coleto nenhum spec, apenas média dos fps."
+                    "Todo doador recebeu 10.000 DuckPoints (uma vez só, com popup) como agradecimento.",
+                    "Doadores agora ganham 1.5x de DuckPoints nos ganhos normais (conquistas, killstreaks, medalhas, minigames). Apostas e caixas ficam de fora.",
+                    "Se você é doador e usa o Toque de Midas, os bônus somam.",
+                    "**Staffs que eram doadores e não conseguiam comprar sweps de doadores (atual só um, mas vai ter mais sweps no futuro) agora conseguem efetuar a compra.**"
                 ]}
             ]},
-            { title: "Mapas", blocks: [
-                { text: "Quase todos os mapas foram trocados, pois foi notado que várias pessoas pediam mapas, porém poucos votaram em mapas novos de verdade. Acontece também que tem gente que vota pelo gm_construct e simplesmente sai do jogo depois (???) Então vocês receberam uma troca ai de mapas, um geralzão. Sugestão sugerida pelo nosso segundo dono, @dieser, muito based, red pill e sigma. Todos os mapas são grandes e com alguma espécie de conteúdo. Se algum mapa tiver faltando, avisa que eu coloco rápido." },
-                { tags: [
-                    "Rp_Rudmerge", "Gm_novenka_improved", "gm_functional_flatgrass3", "gm_harborside (Build/Battle Map)",
-                    "gm_heartland", "gm_megastruct13", "gm_monki", "Futurofrost Circuit V1", "GM BuildSpase E3",
-                    "Gm Cluster", "Gm Rustheart Spring", "gm_autumnpark (2026 UPDATE)", "gm_boreas",
-                    "gm_construct_flatgrass_v6-2", "Area 51", "Awesome Build Server Map", "DD Flatgrass 1-1",
-                    "Echo City Circuit V1", "Fightspace 3b"
-                ]}
-            ]},
-            { title: "Outros", blocks: [
+            { title: "Bounties", blocks: [
                 { items: [
-                    "- Remoção total do bigcity",
-                    "- Remoção do M9K, substituído por TacRP",
-                    "+ Glide // Circular Functions",
-                    "+ Glide // Most Wanted Customization Suite",
-                    "+ SProps Workshop Edition"
+                    "Sistema de bounties para colocar recompensas na cabeça dos outros, cooldown de 30 minutos por bounty.",
+                    "Apenas uma recompensa pode ser colocada por pessoa, e ela tem um limite de até 5 milhões."
+                ]}
+            ]},
+            { title: "Missões", blocks: [
+                { text: "Sistema de missões simples para focar no sandbox alheio, apenas uma prova de conceito, esperamos mais sugestões! Criei uma tag de \"missão\" no canal de sugestões." }
+            ]},
+            { title: "Loading screen", blocks: [
+                { items: ["Novas variações feitas, e musiquinhas."] }
+            ]},
+            { title: "Bug fixes", blocks: [
+                { items: [
+                    "Pesca voltou a funcionar, mas a água que tu for usar para pescar precisa ter uma profundidade.",
+                    "Alguns sons de efeitos ficavam tocando no mapa depois que o efeito acabava, isso foi consertado."
                 ]}
             ]}
         ]

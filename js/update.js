@@ -67,7 +67,8 @@ Duck.Update = (function () {
     }
 
     function escapeHtml(text) {
-        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var safe = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return safe.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     }
 
     function itemHtml(value) {
