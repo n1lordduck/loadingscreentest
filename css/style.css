@@ -377,6 +377,188 @@ canvas {
     text-align: center;
 }
 
+/* Update card */
+
+#update {
+    position: absolute;
+    right: 1.6rem;
+    top: 8.5rem;
+    bottom: 24.5rem;
+    width: 19rem;
+    max-height: 26rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #fff3d6;
+    background: #283250;
+    border: 0.18rem solid #182032;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.35rem 0 #182032;
+    -webkit-transform: rotate(-1.5deg);
+    transform: rotate(-1.5deg);
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+
+#update.update-out {
+    opacity: 0.2;
+}
+
+#update.update-in {
+    opacity: 1;
+}
+
+#update-head {
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    top: 0.6rem;
+    height: 3.2rem;
+    overflow: hidden;
+}
+
+#update-version {
+    display: inline-block;
+    padding: 0 0.5rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.3rem;
+    color: #182032;
+    background: #ffd23f;
+    border: 0.12rem solid #182032;
+    border-radius: 0.7rem;
+}
+
+#update-title {
+    display: block;
+    margin-top: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+
+#update-body {
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    top: 4rem;
+    bottom: 1.9rem;
+    overflow: hidden;
+}
+
+#update-page-title {
+    margin: 0 0 0.45rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.15;
+    color: #ffd23f;
+}
+
+.update-part {
+    font-size: 0.7rem;
+    color: #a5b2ce;
+}
+
+#update-page {
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #d3dbee;
+}
+
+.update-text {
+    margin-right: 0.2rem;
+}
+
+.update-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.update-item {
+    position: relative;
+    margin-bottom: 0.4rem;
+    padding-left: 0.9rem;
+}
+
+.update-item:before {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 0.45em;
+    width: 0.35rem;
+    height: 0.35rem;
+    background: #ffd23f;
+    border-radius: 0.2rem;
+}
+
+.update-signed {
+    padding-left: 1.4rem;
+}
+
+.update-signed:before {
+    display: none;
+}
+
+.update-sign {
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    width: 1rem;
+    height: 1rem;
+    font-family: "Fredoka", "Trebuchet MS", sans-serif;
+    line-height: 1rem;
+    text-align: center;
+    color: #182032;
+    border-radius: 0.3rem;
+}
+
+.update-add {
+    background: #7cf06a;
+}
+
+.update-remove {
+    background: #ff6b6b;
+}
+
+.update-tags {
+    margin-top: 0.4rem;
+}
+
+.update-tag {
+    display: inline-block;
+    margin: 0 0.25rem 0.3rem 0;
+    padding: 0.05rem 0.45rem;
+    font-size: 0.72rem;
+    color: #182032;
+    background: #ffd23f;
+    border-radius: 0.6rem;
+}
+
+#update-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.55rem;
+    text-align: center;
+}
+
+.update-dot {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0 0.13rem;
+    background: #4a587c;
+    border-radius: 0.2rem;
+}
+
+.update-dot-active {
+    background: #ffd23f;
+}
+
 /* Loading card */
 
 #progress {

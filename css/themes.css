@@ -18,6 +18,7 @@
 .theme-halloween .badge-slots,
 .theme-halloween #progress,
 .theme-halloween #commands,
+.theme-halloween #update,
 .theme-halloween #sound-button {
     background: #2b1740;
     border-color: #12081f;
@@ -125,6 +126,7 @@
 .theme-christmas .badge-slots,
 .theme-christmas #progress,
 .theme-christmas #commands,
+.theme-christmas #update,
 .theme-christmas #sound-button {
     background: #1c4a38;
     border-color: #0c2a20;
@@ -192,4 +194,54 @@
     background-color: #d8343c;
     background-image: -webkit-repeating-linear-gradient(-45deg, #d8343c 0, #d8343c 0.6rem, #ffffff 0.6rem, #ffffff 1.2rem);
     background-image: repeating-linear-gradient(-45deg, #d8343c 0, #d8343c 0.6rem, #ffffff 0.6rem, #ffffff 1.2rem);
+}
+
+/* Update card */
+
+.theme-halloween #update-version,
+.theme-halloween .update-tag {
+    background: #ff8a1f;
+    border-color: #12081f;
+}
+
+.theme-halloween #update-page-title {
+    color: #ff9f3a;
+}
+
+.theme-halloween .update-item:before {
+    background: #ff8a1f;
+}
+
+.theme-halloween #update-page {
+    color: #e6d8f2;
+}
+
+.theme-halloween .update-dot {
+    background: #4a2d6a;
+}
+
+.theme-halloween .update-dot-active {
+    background: #ff8a1f;
+}
+
+.theme-christmas #update-version {
+    color: #ffffff;
+    background: #d8343c;
+    border-color: #0c2a20;
+}
+
+.theme-christmas .update-item:before {
+    background: #d8343c;
+}
+
+.theme-christmas #update-page {
+    color: #dcefe4;
+}
+
+.theme-christmas .update-dot {
+    background: #2d6a52;
+}
+
+.theme-christmas .update-dot-active {
+    background: #d8343c;
 }

@@ -11,6 +11,49 @@ Duck.Data = {
         ["!conquistas", "Suas conquistas"]
     ],
 
+    update: {
+        version: "v3.1.2",
+        title: "Ah shit, here we go again!",
+        sections: [
+            { title: "Novidades", blocks: [
+                { text: "Mais conteúdo, novos mapas para apagar os sempre usados de sempre, todos os mapas são grandes, especialmente o harborside, e mais algo na loka!" }
+            ]},
+            { title: "Duck's Store: Kill Effects", blocks: [
+                { items: [
+                    "54 kill effects",
+                    "Nova aba de efeito de kills!",
+                    "Alguns kill effects foram adicionados para os testes, e para as pessoas verem e sugerirem coisas.",
+                    "Isto é que nem conquistas e nameplates, precisamos de sugestões!"
+                ]}
+            ]},
+            { title: "Performance", blocks: [
+                { items: [
+                    "O lag, pelos relatos dos players jogando exatamente AGORA de noite, dizem ser inexistente.",
+                    "Uma média do FPS dos players será coletada para análise após updates, mas eu não coleto nenhum spec, apenas média dos fps."
+                ]}
+            ]},
+            { title: "Mapas", blocks: [
+                { text: "Quase todos os mapas foram trocados, pois foi notado que várias pessoas pediam mapas, porém poucos votaram em mapas novos de verdade. Acontece também que tem gente que vota pelo gm_construct e simplesmente sai do jogo depois (???) Então vocês receberam uma troca ai de mapas, um geralzão. Sugestão sugerida pelo nosso segundo dono, @dieser, muito based, red pill e sigma. Todos os mapas são grandes e com alguma espécie de conteúdo. Se algum mapa tiver faltando, avisa que eu coloco rápido." },
+                { tags: [
+                    "Rp_Rudmerge", "Gm_novenka_improved", "gm_functional_flatgrass3", "gm_harborside (Build/Battle Map)",
+                    "gm_heartland", "gm_megastruct13", "gm_monki", "Futurofrost Circuit V1", "GM BuildSpase E3",
+                    "Gm Cluster", "Gm Rustheart Spring", "gm_autumnpark (2026 UPDATE)", "gm_boreas",
+                    "gm_construct_flatgrass_v6-2", "Area 51", "Awesome Build Server Map", "DD Flatgrass 1-1",
+                    "Echo City Circuit V1", "Fightspace 3b"
+                ]}
+            ]},
+            { title: "Outros", blocks: [
+                { items: [
+                    "- Remoção total do bigcity",
+                    "- Remoção do M9K, substituído por TacRP",
+                    "+ Glide // Circular Functions",
+                    "+ Glide // Most Wanted Customization Suite",
+                    "+ SProps Workshop Edition"
+                ]}
+            ]}
+        ]
+    },
+
     screenshots: [
         "204EAC1.webp", "bfxx.webp", "bom.webp", "Captura_de_tela_2026-09-05_023503.webp",
         "cxzcx.webp", "f5tfwp1.webp", "feli.webp", "fgxbcx.webp", "image.webp", "lug.webp",

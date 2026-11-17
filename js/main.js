@@ -56,6 +56,7 @@ window.Duck = Duck;
     Duck.onScaleChanged = function (px) {
         paintStatic(px);
         if (Duck.Rules.ready) Duck.Rules.layout(px);
+        if (Duck.Update.ready) Duck.Update.layout();
         if (Duck.Loading.ready) Duck.Loading.repaint();
     };
 
@@ -67,6 +68,9 @@ window.Duck = Duck;
         Duck.Scene.start(document.getElementById("scene"));
         Duck.Rules.start();
         Duck.Rules.ready = true;
+        Duck.Update.start();
+        Duck.Update.ready = true;
+        Duck.Update.layout();
         Duck.Loading.start();
         Duck.Loading.ready = true;
         Duck.Gallery.start();
